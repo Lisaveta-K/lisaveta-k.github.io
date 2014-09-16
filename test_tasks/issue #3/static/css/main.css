@@ -1,0 +1,45 @@
+/* =Main Styles
+__________________________________*/
+@import url(../../../global/css/layout.css);
+
+/* =User Styles
+__________________________________*/
+
+.b-task-result{
+height: 80px;
+}
+
+ul{
+position: relative;
+max-width: 100%;
+}
+
+li{
+-webkit-margin-before: 0px;
+height: 40px;
+width:29%;
+padding: 10px;
+display: inline-block;
+border: 1px #ccc  solid;
+margin-right: 0;
+margin-left: 0;
+border-right-style: none;
+float: left;
+}
+
+ul:first-child{
+margin-left: 10px;
+}
+
+ul :last-child {
+border-right-style: solid;
+}
+
+.num{
+float: right;
+}
+
+
+
+
+
