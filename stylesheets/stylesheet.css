@@ -27,6 +27,12 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+ @font-face {
+    font-family: BadScript-Regular; 
+    src: url(fonts/BadScript-Regular.ttf);
+   }
+
 body {
 	line-height: 1;
 }
@@ -307,8 +313,8 @@ h6:before {
 }
 
 .handwrite{
-font-style: italic;
-font-weight: light;
+ font-family: BadScript-Regular; 
+ font-size: 1em;
 }
 
 p {
