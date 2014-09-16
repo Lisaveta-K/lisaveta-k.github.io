@@ -226,9 +226,9 @@ form {
 
 #main-content h1 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
-  font-size: 2.8em;
+  font-size: 2em;
   letter-spacing: -1px;
-  color: #474747;
+  color: #337bc4;
 } 
 
 #main-content h1:before {
