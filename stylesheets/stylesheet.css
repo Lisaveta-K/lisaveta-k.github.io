@@ -247,9 +247,8 @@ form {
 #main-content h2 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
   font-size: 22px;
-  font-weight: bold;
   margin-bottom: 8px;
-  color: #474747;
+  color: #1e4d8c;
 } 
 #main-content h2:before {
   content: "//";
