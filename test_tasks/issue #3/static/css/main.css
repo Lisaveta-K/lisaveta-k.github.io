@@ -27,6 +27,10 @@ border-right-style: none;
 float: left;
 }
 
+li span{
+border-bottom: 1px black dotted;
+}
+
 ul:first-child{
 margin-left: 10px;
 }
