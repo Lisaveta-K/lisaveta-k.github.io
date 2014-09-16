@@ -44,6 +44,10 @@ float: none;
 text-align: right;
 }
 
+.box :last-child{
+float: right;
+}
+
 
 
 
