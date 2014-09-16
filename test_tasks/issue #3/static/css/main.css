@@ -40,7 +40,7 @@ border-right-style: solid;
 }
 
 .num{
-float: right;
+position: absolute;
 }
 
 
