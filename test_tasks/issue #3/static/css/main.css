@@ -27,7 +27,7 @@ border-right-style: none;
 float: left;
 }
 
-li span{
+.dots{
 border-bottom: 1px black dotted;
 }
 
