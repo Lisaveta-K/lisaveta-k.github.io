@@ -47,6 +47,11 @@ float: right;
 float: left;
 }
 
+.dots{
+overflow: hidden;
+}
+
+
 
 
 
