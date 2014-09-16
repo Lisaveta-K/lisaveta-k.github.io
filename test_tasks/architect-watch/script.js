@@ -39,9 +39,9 @@ $(document).ready(function(){
         .css('transform', 'rotate('+hourPos+'deg)')
         .removeClass('hidden');
         
+//Объемная фигура имеет 12 граней, помимо стрелок, являющихся основными, добавляем еще 9 граней        
 
 
- //секундная стрелка
 
     $('.second .pseudo-minute').css('-moz-transform', 'rotate('+(-secPos+minPos)+'deg)')
         .css('-ms-transform', 'rotate('+(-secPos+minPos)+'deg)')
@@ -63,10 +63,6 @@ $(document).ready(function(){
 
 
 
-
-
-    //минутная стрелка
-
     $('.minute .pseudo-second').css('-moz-transform', 'rotate('+(-minPos+secPos)+'deg)')
         .css('-ms-transform', 'rotate('+(-minPos+secPos)+'deg)')
         .css('-webkit-transform', 'rotate('+(-minPos+secPos)+'deg)')
@@ -87,10 +83,6 @@ $(document).ready(function(){
 
 
 
-
-
-    //часовая стрелка
-
     $('.hour .pseudo-minute').css('-moz-transform', 'rotate('+(-hourPos+minPos)+'deg)')
         .css('-ms-transform', 'rotate('+(-hourPos+minPos)+'deg)')
         .css('-webkit-transform', 'rotate('+(-hourPos+minPos)+'deg)')
@@ -109,9 +101,8 @@ $(document).ready(function(){
         .css('-o-transform', 'rotate('+(-minPos+secPos)+'deg)')
         .css('transform', 'rotate('+(-minPos+secPos)+'deg)');
 
-
-
-
+//Задаём изменение положения стрелки, изменяя переменную secPos
+//Когда секундная стрелка совершает полный оборот, возвращаем значение градусов к нулевой отметке
 
     window.secTimer = setInterval(function(){
         secPos+=0.06;
@@ -124,11 +115,7 @@ $(document).ready(function(){
             .css('transform', 'rotate('+secPos+'deg)');
 
 
-
-
-
-
-        //секундная стрелка
+//Перемещаем грани фигуры, не являющиеся основными стрелками в соответствии с новым положением секундной стрелки
 
         $('.second .pseudo-minute').css('-moz-transform', 'rotate('+(-secPos+minPos)+'deg)')
             .css('-ms-transform', 'rotate('+(-secPos+minPos)+'deg)')
@@ -150,10 +137,6 @@ $(document).ready(function(){
 
 
 
-
-
-        //минутная стрелка
-
         $('.minute .pseudo-second').css('-moz-transform', 'rotate('+(-minPos+secPos)+'deg)')
             .css('-ms-transform', 'rotate('+(-minPos+secPos)+'deg)')
             .css('-webkit-transform', 'rotate('+(-minPos+secPos)+'deg)')
@@ -172,11 +155,6 @@ $(document).ready(function(){
             .css('-o-transform', 'rotate('+(-secPos+hourPos)+'deg)')
             .css('transform', 'rotate('+(-secPos+hourPos)+'deg)');
 
-
-
-
-
-        //часовая стрелка
 
         $('.hour .pseudo-minute').css('-moz-transform', 'rotate('+(-hourPos+minPos)+'deg)')
             .css('-ms-transform', 'rotate('+(-hourPos+minPos)+'deg)')
@@ -198,6 +176,7 @@ $(document).ready(function(){
     },10);
 
 
+//Задаём поворот минутной стрелки
     window.minTimer = setInterval(function(){
         secNow = new Date().getSeconds();
         minNow = new Date().getMinutes();
@@ -212,6 +191,9 @@ $(document).ready(function(){
             .css('-o-transform', 'rotate('+minPos+'deg)')
             .css('transform', 'rotate('+minPos+'deg)');
     },600);
+    
+    
+//Задаём поворот часовой стрелки
 
 
     window.hourTimer = setInterval(function(){
