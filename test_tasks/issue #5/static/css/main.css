@@ -5,31 +5,38 @@ __________________________________*/
 /* =User Styles
 __________________________________*/
 
-.b-task-result{
-position: relative;
-width: 76%;
-margin-left: 1em;
-padding: 1em;
-z-index:1; 
-text-shadow: #7c7e7f 0 0 7px;
-color: transparent; /* Прозрачный цвет текста */
+.b-task-result
+{
+    position: relative;
+    z-index: 1;
+
+    width: 76%;
+    margin-left: 1em;
+    padding: 1em;
+
+    color: transparent; /* Прозрачный цвет текста */
+    text-shadow: #7c7e7f 0 0 7px;
 }
 
-.b-task-result p{
-margin-bottom: 1em;
+.b-task-result p
+{
+    margin-bottom: 1em;
 }
 
-.popup{
-color: black;
-text-shadow: none;
-background-color: white;
-width: 100px;
-padding: 0.5em 0;
-text-align: center;
-border: 1px solid #aaacae;
-position: relative;
-z-index: 2; 
-top:-11vw;
-left: calc(50% - 50px);
-}
+.popup
+{
+    position: relative;
+    z-index: 2;
+    top: -11vw;
+    left: calc(50% - 50px);
 
+    width: 100px;
+    padding: .5em 0;
+
+    text-align: center;
+
+    color: black;
+    border: 1px solid #aaacae;
+    background-color: white;
+    text-shadow: none;
+}
