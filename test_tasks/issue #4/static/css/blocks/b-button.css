@@ -59,7 +59,7 @@
     border-color: #b4b7b5;
 }
 
-.b-button: active
+.b-button:active
 {
  background: #a4b553; /* Old browsers */
     background:    -moz-linear-gradient(top, #768c19 0%, #a4b553 99%, #a4b553 100%); /* FF3.6+ */
@@ -82,5 +82,5 @@
     inset 0 1px 0 #9aac4f,
     inset 0 -2px 0 #7f981b,
     inset 0 2px 0 #d6e68f;
-
+color: #ffb900;
 }
