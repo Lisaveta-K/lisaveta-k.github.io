@@ -83,4 +83,12 @@
     inset 0 -2px 0 #7f981b,
     inset 0 2px 0 #d6e68f;
 color: #ffb900;
+
+-webkit-transition: all 0s ease 0s;
+       -moz-transition: all 0s ease 0s;
+        -ms-transition: all 0s ease 0s;
+         -o-transition: all 0s ease 0s;
+            transition: all 0s ease 0s;
+
+all 0s ease 0s
 }
