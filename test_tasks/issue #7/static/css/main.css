@@ -1,8 +1,10 @@
 
 .b-task{
+	font-family: Arial;
 	position: relative;
 	padding-bottom: 77%;
 	height: 0;
+	margin-bottom: 10px;
 }
 
 
