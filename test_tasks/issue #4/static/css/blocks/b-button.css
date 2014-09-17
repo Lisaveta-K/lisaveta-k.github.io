@@ -59,6 +59,7 @@
     border-color: #b4b7b5;
 }
 
+/* 
 .b-button:active
 {
  background: #a4b553; /* Old browsers */
@@ -91,6 +92,7 @@ color: #ffb900;
             transition: all 0s ease 0s;
 
 }
+ */
 
 .b-button:focus
 {
