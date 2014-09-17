@@ -92,7 +92,7 @@ color: #ffb900;
 
 }
 
-:focus
+.b-button:focus
 {
-border-color:#60cafd;
+border-color: #60cafd;
 }
