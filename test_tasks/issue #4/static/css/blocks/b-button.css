@@ -90,5 +90,9 @@ color: #ffb900;
          -o-transition: all 0s ease 0s;
             transition: all 0s ease 0s;
 
-all 0s ease 0s
+}
+
+.b-button:focus
+{
+border-color:#60cafd;
 }
