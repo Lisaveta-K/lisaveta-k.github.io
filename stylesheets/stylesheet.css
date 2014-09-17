@@ -316,6 +316,10 @@ h6:before {
  font-size: 1.1em;
 }
 
+.handwrite span{
+color: #ff3264;
+}
+
 p {
   margin-bottom: 20px;
 }
