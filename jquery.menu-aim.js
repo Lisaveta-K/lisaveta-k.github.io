@@ -87,7 +87,7 @@
             lastDelayLoc = null,
             timeoutId = null,
             options = $.extend({
-                rowSelector: "> navmenu--list_item",
+                rowSelector: "> li",
                 submenuSelector: "*",
                 submenuDirection: "right",
                 tolerance: 75,  // bigger = more forgivey when entering submenu
