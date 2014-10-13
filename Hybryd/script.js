@@ -1,4 +1,4 @@
-var $menu = $(".navmenu--list");
+$(document).ready(function() { var $menu = $(".navmenu--list");
 
 
 
@@ -78,3 +78,5 @@ var $menu = $(".navmenu--list");
             $(".popover").css("display", "none");
             $("a.maintainHover").removeClass("maintainHover");
         });
+       
+ });
