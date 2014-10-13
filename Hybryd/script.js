@@ -1,10 +1,13 @@
+$( document ).ready( function(){
 var $menu = $(".navmenu--list");
 
         // jQuery-menu-aim: <meaningful part of the example>
         // Hook up events to be fired on menu row activation.
+        $menu.hover(function(){
         $menu.menuAim({
             activate: activateSubmenu,
             deactivate: deactivateSubmenu
+        });
         });
         // jQuery-menu-aim: </meaningful part of the example>
 
@@ -12,6 +15,7 @@ var $menu = $(".navmenu--list");
         // contents. Again, this can be done in any number of ways. jQuery-menu-aim
         // doesn't care how you do this, it just fires the activate and deactivate
         // events at the right times so you know when to show and hide your submenus.
+        
         function activateSubmenu(row) {
             var $row = $(row),
             	submenuId = $row.data("submenuId"),
@@ -32,7 +36,7 @@ var $menu = $(".navmenu--list");
                 "opacity": "1"
             });
             
-            git // Keep the currently activated row's highlighted look
+             // Keep the currently activated row's highlighted look
             $row.find("a").addClass("maintainHover");
         }
 
@@ -73,4 +77,6 @@ var $menu = $(".navmenu--list");
             $(".popover").css("display", "none");
             $("a.maintainHover").removeClass("maintainHover");
         });
-       
+    
+ 
+   } );
