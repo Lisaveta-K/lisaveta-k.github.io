@@ -1,7 +1,6 @@
 $(document).ready(function() {
-alert("");
 var $menu = $(".navmenu--list");
-alert($('#submenu-jacks').innerHTML);
+alert($("#submenu-jacks").innerHTML);
 
 
 
