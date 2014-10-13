@@ -33,7 +33,7 @@ var $menu = $(".navmenu--list");
                 "opacity": "1"
             });
             
-             // Keep the currently activated row's highlighted look
+            git // Keep the currently activated row's highlighted look
             $row.find("a").addClass("maintainHover");
         }
 
