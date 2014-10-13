@@ -1,8 +1,6 @@
 var $menu = $(".navmenu--list");
 
- $( document ).ready( function()
 
-    {
 
         // jQuery-menu-aim: <meaningful part of the example>
         // Hook up events to be fired on menu row activation.
@@ -10,7 +8,6 @@ var $menu = $(".navmenu--list");
             activate: activateSubmenu,
             deactivate: deactivateSubmenu
         });
-        }
         // jQuery-menu-aim: </meaningful part of the example>
 
         // jQuery-menu-aim: the following JS is used to show and hide the submenu
