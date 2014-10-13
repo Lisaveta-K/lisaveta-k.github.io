@@ -1,8 +1,5 @@
 $(document).ready(function() {
 var $menu = $(".navmenu--list");
-alert($("#submenu-jacks").innerHTML);
-
-
 
         // jQuery-menu-aim: <meaningful part of the example>
         // Hook up events to be fired on menu row activation.
@@ -36,10 +33,7 @@ alert($("#submenu-jacks").innerHTML);
                 "opacity": "1"
             });
             
-            
-            
-
-            // Keep the currently activated row's highlighted look
+             // Keep the currently activated row's highlighted look
             $row.find("a").addClass("maintainHover");
         }
 
