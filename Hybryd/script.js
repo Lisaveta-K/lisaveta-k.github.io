@@ -1,4 +1,3 @@
-$(document).ready(function() {
 var $menu = $(".navmenu--list");
 
         // jQuery-menu-aim: <meaningful part of the example>
@@ -75,4 +74,3 @@ var $menu = $(".navmenu--list");
             $("a.maintainHover").removeClass("maintainHover");
         });
        
- });
