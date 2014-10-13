@@ -1,4 +1,7 @@
-$(document).ready(function() { var $menu = $(".navmenu--list");
+$(document).ready(function() {
+alert("");
+var $menu = $(".navmenu--list");
+alert("Jacks:", $('#submenu-jacks').innerHTML);
 
 
 
