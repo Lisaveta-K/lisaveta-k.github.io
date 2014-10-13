@@ -1,7 +1,7 @@
 $(document).ready(function() {
 alert("");
 var $menu = $(".navmenu--list");
-alert("Jacks:", $('#submenu-jacks').innerHTML);
+alert($('#submenu-jacks').innerHTML);
 
 
 
