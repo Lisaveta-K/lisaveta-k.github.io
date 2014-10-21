@@ -24,7 +24,7 @@ var $menu = $(".navmenu--list");
         
        function activateSubmenu(row) {
             var $row = $(row),
-			$submenu=$row.children(".submenu"); 
+			$submenu=$row.children(".popover"); 
 			
             // Show the submenu
             $submenu.css({
@@ -38,7 +38,7 @@ var $menu = $(".navmenu--list");
         
 function deactivateSubmenu(row) {
         var $row = $(row),
-		$submenu=$row.children(".submenu"); 
+		$submenu=$row.children(".popover"); 
             
             $submenu.css({
                 "opacity": "0",
