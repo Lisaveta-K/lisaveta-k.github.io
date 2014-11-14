@@ -25,7 +25,7 @@ body{
 }
 
 .header{
-	width:90%;
+	width:95%;
 	background-color: #ffffff;
 	margin:0 auto;
 	top:0px;
@@ -85,7 +85,7 @@ body{
 */
 .content{
 	height: inherit;
-	width:90%;
+	width:95%;
 	background-color: #ffffff;
 	margin:0 auto;
 	vertical-align: top;
@@ -207,6 +207,7 @@ background-color: #8b0011;
 }
 
 .blog{
+	padding-left: 40px;
 	border-radius: 10px;
 	margin:0px auto;
 	border: 3px solid #ebc07f;
@@ -215,28 +216,41 @@ background-color: #8b0011;
 	margin-bottom: 40px;
 }
 
-.blog h2{ 
-padding-left: 40px;
+.blog-note{
+	padding-right: 25px;
+	vertical-align: top;
+	display: inline-block;
+	width: 240px;
+	height:200px;
 }
 
-.blog-note{
-	padding-left: 40px;
-}
 
 .blog-note span.date{
 	color: #877f6f;
 }
 
+.blog-note-title a{
+	color: #8b0011;
+}
+
+.blog-note-text{
+color: #262626;
+}
+
+.gradient{
+margin:0px auto;
+background: -webkit-linear-gradient(bottom, #ffffff 0%,#f2f2f2 99%,#f2f2f2 10%);
+height:10px;
+}
+
 .bottom-text{
 	margin:0px auto;
-	width:90%;
-	border-bottom-width:10px; 
-	border-bottom-style:solid;
-	border-bottom-color: 
-      -webkit-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%;
-	width: 100%;
+	width:100%;
+	/*border-top-width:10px; 
+	border-top-style:solid;
+	border-top-color: #f2f2f2;*/
 	height:initial;
-	padding-top: 40px;
+	padding-top: 30px;
 	padding-bottom: 40px;
 }
 
