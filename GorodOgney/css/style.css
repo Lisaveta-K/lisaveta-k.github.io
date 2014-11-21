@@ -289,8 +289,8 @@ box-shadow:
 	content: '';
 }
 
-@-moz-document{
-    .button:after url-prefix(){
+@-moz-document url-prefix() {
+    .button:after{
 	top: 267px; 
 	left: 294px;
     }
