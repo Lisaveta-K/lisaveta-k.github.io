@@ -290,7 +290,7 @@ box-shadow:
 }
 
 @-moz-document{
-    .button:after{
+    .button:after url-prefix(){
 	top: 267px; 
 	left: 294px;
     }
