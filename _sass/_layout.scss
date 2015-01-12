@@ -43,12 +43,7 @@
     .page-link {
         color: $text-color;
         line-height: $base-line-height;
-
-        // Gaps between nav items, but not on the first one
-        &:not(:first-child) {
-            margin-left: 20px;
-
-    border: 1px solid #392d61;
+        border: 1px solid #392d61;
    background: #5f4f92;
    background: -webkit-gradient(linear, left top, left bottom, from(#8375b0), to(#5f4f92));
    background: -webkit-linear-gradient(top, #8375b0, #5f4f92);
@@ -69,6 +64,12 @@
    font-family: helvetica, serif;
    text-decoration: none;
    vertical-align: middle;
+
+        // Gaps between nav items, but not on the first one
+        &:not(:first-child) {
+            margin-left: 20px;
+
+    
         }
     }
 
