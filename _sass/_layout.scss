@@ -1,6 +1,11 @@
 /**
  * Site header
  */
+@font-face {
+    font-family: MarckScript-Regular; 
+    src: url(fonts/MarckScript-Regular.ttf);
+   } 
+
 .site-header {
     background: #5f4f92;
    background: -webkit-gradient(linear, left top, left bottom, from(#8375b0), to(#5f4f92));
@@ -20,6 +25,7 @@
 }
 
 .site-title {
+    font-family: MarckScript-Regular; 
     font-size: 26px;
     line-height: 56px;
     letter-spacing: -1px;
@@ -240,6 +246,8 @@
  * Page content
  */
 .page-content {
+    margin: 0 auto;
+    width:900px;
     padding: $spacing-unit 0;
 }
 
