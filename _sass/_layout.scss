@@ -88,8 +88,9 @@
             padding-bottom: 5px;
         }
 
-        .page-link {
-            border: 1px solid #392d61;
+        .button {
+    margin-left: 10px;
+   border: 1px solid #392d61;
    background: #5f4f92;
    background: -webkit-gradient(linear, left top, left bottom, from(#8375b0), to(#5f4f92));
    background: -webkit-linear-gradient(top, #8375b0, #5f4f92);
@@ -110,6 +111,11 @@
    font-family: helvetica, serif;
    text-decoration: none;
    vertical-align: middle;
+   }
+
+        .page-link {
+            display: block;
+            padding: 5px 10px;
         }
     }
 }
