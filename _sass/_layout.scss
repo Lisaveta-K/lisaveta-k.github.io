@@ -225,7 +225,8 @@ color: #fff;
  */
 .page-content {
     margin: 0 auto;
-    width:900px;
+    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
+    max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
     padding: $spacing-unit 0;
 }
 
@@ -259,6 +260,11 @@ color: #fff;
 /**
  * Posts
  */
+
+ .post{
+    padding: 30px;
+    background-color: #fff;
+ }
 .post-header {
     margin-bottom: $spacing-unit;
 }
@@ -300,3 +306,4 @@ color: #fff;
         }
     }
 }
+
