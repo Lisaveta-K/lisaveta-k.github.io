@@ -2,9 +2,18 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
-    min-height: 56px;
+    background: #5f4f92;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8375b0), to(#5f4f92));
+   background: -webkit-linear-gradient(top, #8375b0, #5f4f92);
+   background: -moz-linear-gradient(top, #8375b0, #5f4f92);
+   background: -ms-linear-gradient(top, #8375b0, #5f4f92);
+   background: -o-linear-gradient(top, #8375b0, #5f4f92);
+   background-image: -ms-linear-gradient(top, #8375b0 0%, #5f4f92 100%);
+    height: 60px;
+    position: absolute;
+    left:0;
+    top:0;
+    padding-top: 30px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
