@@ -67,9 +67,8 @@
         // Gaps between nav items, but not on the first one
         &:not(:first-child) {
             margin-left: 20px;
-
-    
         }
+}
 
     .page-link:hover {
     border: 1px solid #392d61;
