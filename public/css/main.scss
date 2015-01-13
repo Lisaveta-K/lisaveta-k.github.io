@@ -20,7 +20,7 @@ $avocado-accent-color: #568203;
 
 body {
   background-color: $site-background-color;
-  border-top: 5px solid $contrast-color;
+  border-top: 5px solid #b4cfd4;
   font-family: 'Source Sans Pro', sans-serif;
   color: $contrast-color;
   font-weight: 400;
@@ -105,7 +105,7 @@ dd {
 }
 
 footer {
-  border-top: 1px solid lighten($contrast-color, 50%);
+  border-top: 1px solid #b4cfd4;
   font-size: .8rem;
   text-align: center;
 }
@@ -191,7 +191,7 @@ footer ul li{
     margin-top: -5px;
     text-transform: uppercase;
     border-radius: 0 0 5px 5px;
-    border-bottom: 1px solid lighten($contrast-color, 10%);
+    border-bottom: 1px solid lighten(#b4cfd4, 10%);
     transition: all ease-in-out .3s;
 
     &:hover,
@@ -201,7 +201,7 @@ footer ul li{
     }
 
     &:hover {
-      background-color: $contrast-color;
+      background-color: #b4cfd4;
       transform: translateY(5px);
     }
 
@@ -300,4 +300,8 @@ dl,
   #logo {
     background-position: center center;
   }
+}
+
+.read_more{
+  text-align: right;
 }
