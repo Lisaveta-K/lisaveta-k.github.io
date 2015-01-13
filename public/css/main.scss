@@ -105,9 +105,28 @@ dd {
 }
 
 footer {
+  border-top: 1px solid lighten($contrast-color, 50%);
   font-size: .8rem;
   text-align: center;
 }
+
+footer ul{
+  list-style-type: none;
+  display: inline-block;
+}
+
+footer ul li{
+  display: inline-block;
+  text-decoration: none;
+  &:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+
+ svg {
+      width: 18px;
+      height: 15px;
+        }
 
 /*============================================================================*/
 .azul { a { color: $azul-accent-color;
