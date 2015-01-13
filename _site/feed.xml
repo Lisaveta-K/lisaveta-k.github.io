@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Лисаветин блог</title>
+    <description></description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 12 Jan 2015 19:02:43 +0800</pubDate>
+    <lastBuildDate>Mon, 12 Jan 2015 19:02:43 +0800</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Первая запись в блоге</title>
+        <description>&lt;p&gt;Наконец запустила Jekyll, он и правда крайне милый. Есть правда еще масса чего, что нужно осваивать, но наконец моя страничка представляет собой не просто страничку, а что-то более живое.
+Хочется сделать вёрстку по-своему, оформить всё на свой вкус, в общем обустроиться и навести уют. Над хедером уже немного поэкспериментировала, теперь бы еще основную часть и футер привести в надлежащий вид. &lt;/p&gt;
+
+&lt;p&gt;Ещё нужно научиться работать с gulp и grunt более уверенно, я понимаю механизмы работы, и знаю как выполнять базовые действия, но хотелось бы это всё довести до автоматизма. Тогда и скорость разработки будет совсем другой.&lt;/p&gt;
+
+&lt;p&gt;И кстати, кнопочки сегодня делала с помощью двух инструментов, которые мне очень понравились, по крайней мере первое впечатление приятное. Так вот кнопочки с градиентом я раньше делала вслепую, подбирала цвета наугад и методом проб и ошибок получала нужный мне градиент, тени и всё остальное. Теперь же можно делать так:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;пойти на &lt;a href=&quot;http://paletton.com&quot;&gt;paletton&lt;/a&gt;, определиться с основным цветом (или цветами)&lt;/li&gt;
+  &lt;li&gt;сервис подскажет подходящие друг другу цвета&lt;/li&gt;
+  &lt;li&gt;пойти на &lt;a href=&quot;http://livetools.uiparade.com/button-builder.html#&quot;&gt;livetools&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;используя цвета, которые подсказал paletton, приводим кнопку к нужному виду&lt;/li&gt;
+  &lt;li&gt;копируем css&lt;/li&gt;
+  &lt;li&gt;радуемся результату&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Mon, 12 Jan 2015 15:20:00 +0800</pubDate>
+        <link>http://yourdomain.com/blog/2015/01/12/first-blog-note.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/blog/2015/01/12/first-blog-note.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+  </channel>
+</rss>

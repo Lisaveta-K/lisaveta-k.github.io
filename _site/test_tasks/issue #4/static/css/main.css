@@ -1,0 +1,15 @@
+/* =Main Styles
+__________________________________*/
+@import url(../../../global/css/layout.css);
+
+/* =User Styles
+__________________________________*/
+@import url(blocks/b-button.css);
+
+.b-task-result{
+height: 100px;
+}
+
+.b-task{
+margin-bottom: 10px;
+}

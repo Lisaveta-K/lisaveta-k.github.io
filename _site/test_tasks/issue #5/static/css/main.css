@@ -1,0 +1,42 @@
+/* =Main Styles
+__________________________________*/
+@import url(../../../global/css/layout.css);
+
+/* =User Styles
+__________________________________*/
+
+.b-task-result
+{
+    position: relative;
+    z-index: 1;
+
+    width: 76%;
+    margin-left: 1em;
+    padding: 1em;
+
+    color: transparent; /* Прозрачный цвет текста */
+    text-shadow: #7c7e7f 0 0 7px;
+}
+
+.b-task-result p
+{
+    margin-bottom: 1em;
+}
+
+.popup
+{
+    position: relative;
+    z-index: 2;
+    top: -11vw;
+    left: calc(50% - 50px);
+
+    width: 100px;
+    padding: .5em 0;
+
+    text-align: center;
+
+    color: black;
+    border: 1px solid #aaacae;
+    background-color: white;
+    text-shadow: none;
+}
