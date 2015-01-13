@@ -195,7 +195,7 @@ footer ul li{
   a {
     display: inline-block;
     color: $contrast-color;
-    padding: 66px 20px 25px;
+    padding: 26px 20px 10px;
     margin-right: 10px;
     margin-top: -5px;
     text-transform: uppercase;
@@ -215,7 +215,7 @@ footer ul li{
     }
 
     &.current-page {
-      background-color: $contrast-color;
+      background-color: lighten(#b4cfd4, 5%);
     }
   }
 }
