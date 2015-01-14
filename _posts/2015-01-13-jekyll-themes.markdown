@@ -8,7 +8,7 @@ categories: blog
 
 Предстоит понять как вставлять картинки в текст. Так же нужно будет получше освоить [markdown]. Пока не определилась что проще, запомнить правила оформления или воспользоваться [онлайн редактором]. Хотя писать прямо в markdown здорово, и как-то атмосферно, что-ли)
 
-![Печатная машинка](typewriter.jpg)
+![Печатная машинка]({{ site.url }}/post_images/jekyll-themes/typewriter.jpg)
 
 [темы]:	http://jekyllthemes.org/
 [markdown]:http://vstarkov.ru/markdown-basics/
