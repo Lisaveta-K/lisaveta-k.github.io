@@ -20,7 +20,7 @@ $avocado-accent-color: #568203;
 
 body {
   background-color: $site-background-color;
-  border-top: 5px solid lighten(#b4cfd4,5%);
+  border-top: 5px solid #cfdfe0;
   font-family: 'Source Sans Pro', sans-serif;
   color: $contrast-color;
   font-weight: 400;
@@ -202,21 +202,20 @@ footer ul li{
     text-transform: uppercase;
     border-radius: 0 0 5px 5px;
     border-bottom: 1px solid lighten(#b4cfd4, 10%);
-    transition: all ease-in-out .3s;
+    transition: all ease-in-out .7s;
 
     &:hover,
     &.current-page {
-      color: $site-background-color;
       border-bottom: none;
     }
 
     &:hover {
-      background-color: lighten(#b4cfd4,5%);
-      transform: translateY(5px);
+      background-color: #cfdfe0;
+      // transform: translateY(5px);
     }
 
     &.current-page {
-      background-color: lighten(#b4cfd4, 5%);
+      background-color: #cfdfe0;
     }
   }
 }
