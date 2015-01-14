@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lisaveta_K</title>
+    <link></link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Здесь будет описание</description>
+    <language>en-us</language>
+    <pubDate>Wed, 14 Jan 2015 16:54:50 +0800</pubDate>
+    <lastBuildDate>Wed, 14 Jan 2015 16:54:50 +0800</lastBuildDate>
+
+    
+      <item>
+        <title>Темы Jekyll</title>
+        <link>/jekyll-themes</link>
+        <pubDate>Tue, 13 Jan 2015 14:48:00 +0800</pubDate>
+        <author>Елизавета Худякова</author>
+        <description>&lt;p&gt;Второй день работы с Jekyll. Пересмотрен внешний вид. Просмотрела &lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;темы&lt;/a&gt;, выбрала подходящую и немного подправила под себя. Пока мне всё нравится.&lt;/p&gt;
+
+&lt;p&gt;Предстоит понять как вставлять картинки в текст. Так же нужно будет получше освоить &lt;a href=&quot;http://vstarkov.ru/markdown-basics/&quot;&gt;markdown&lt;/a&gt;. Пока не определилась что проще, запомнить правила оформления или воспользоваться &lt;a href=&quot;https://stackedit.io/editor&quot;&gt;онлайн редактором&lt;/a&gt;. Хотя писать прямо в markdown здорово, и как-то атмосферно, что-ли)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;typewriter.jpg&quot; alt=&quot;Печатная машинка&quot;&gt;&lt;/p&gt;
+</description>
+      </item>
+    
+      <item>
+        <title>Первая запись в блоге</title>
+        <link>/first-blog-note</link>
+        <pubDate>Mon, 12 Jan 2015 15:20:00 +0800</pubDate>
+        <author>Елизавета Худякова</author>
+        <description>&lt;p&gt;Наконец запустила Jekyll, он и правда крайне милый. Есть правда еще масса чего, что нужно осваивать, но наконец моя страничка представляет собой не просто страничку, а что-то более живое.
+Хочется сделать вёрстку по-своему, оформить всё на свой вкус, в общем обустроиться и навести уют. Над хедером уже немного поэкспериментировала, теперь бы еще основную часть и футер привести в надлежащий вид. &lt;/p&gt;
+
+&lt;p&gt;Ещё нужно научиться работать с gulp и grunt более уверенно, я понимаю механизмы работы, и знаю как выполнять базовые действия, но хотелось бы это всё довести до автоматизма. Тогда и скорость разработки будет совсем другой.&lt;/p&gt;
+
+&lt;p&gt;И кстати, кнопочки сегодня делала с помощью двух инструментов, которые мне очень понравились, по крайней мере первое впечатление приятное. Так вот кнопочки с градиентом я раньше делала вслепую, подбирала цвета наугад и методом проб и ошибок получала нужный мне градиент, тени и всё остальное. Теперь же можно делать так:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;пойти на &lt;a href=&quot;http://paletton.com&quot;&gt;paletton&lt;/a&gt;, определиться с основным цветом (или цветами)&lt;/li&gt;
+&lt;li&gt;сервис подскажет подходящие друг другу цвета&lt;/li&gt;
+&lt;li&gt;пойти на &lt;a href=&quot;http://livetools.uiparade.com/button-builder.html#&quot;&gt;livetools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;используя цвета, которые подсказал paletton, приводим кнопку к нужному виду&lt;/li&gt;
+&lt;li&gt;копируем css&lt;/li&gt;
+&lt;li&gt;радуемся результату&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      </item>
+    
+
+  </channel>
+</rss>
