@@ -6,8 +6,8 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <description>Здесь будет описание</description>
     <language>en-us</language>
-    <pubDate>Wed, 14 Jan 2015 13:45:03 +0800</pubDate>
-    <lastBuildDate>Wed, 14 Jan 2015 13:45:03 +0800</lastBuildDate>
+    <pubDate>Wed, 14 Jan 2015 16:54:50 +0800</pubDate>
+    <lastBuildDate>Wed, 14 Jan 2015 16:54:50 +0800</lastBuildDate>
 
     
       <item>
@@ -18,6 +18,8 @@
         <description>&lt;p&gt;Второй день работы с Jekyll. Пересмотрен внешний вид. Просмотрела &lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;темы&lt;/a&gt;, выбрала подходящую и немного подправила под себя. Пока мне всё нравится.&lt;/p&gt;
 
 &lt;p&gt;Предстоит понять как вставлять картинки в текст. Так же нужно будет получше освоить &lt;a href=&quot;http://vstarkov.ru/markdown-basics/&quot;&gt;markdown&lt;/a&gt;. Пока не определилась что проще, запомнить правила оформления или воспользоваться &lt;a href=&quot;https://stackedit.io/editor&quot;&gt;онлайн редактором&lt;/a&gt;. Хотя писать прямо в markdown здорово, и как-то атмосферно, что-ли)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;typewriter.jpg&quot; alt=&quot;Печатная машинка&quot;&gt;&lt;/p&gt;
 </description>
       </item>
     
