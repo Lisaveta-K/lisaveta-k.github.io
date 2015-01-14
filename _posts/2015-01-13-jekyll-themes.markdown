@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Темы Jekyll"
+title:  "Темы Jekyll и Markdown"
 date:   2015-01-13 14:48
 categories: blog
 ---
