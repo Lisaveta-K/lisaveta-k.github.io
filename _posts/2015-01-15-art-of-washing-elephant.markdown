@@ -6,7 +6,7 @@ categories: blog, books, reading
 ---
 Небольшая [книга] Влада В. Головача, посвященная дизайну пользовательского интерфейса может быть полезна не только дизайнерам. Некоторые тезисы можно применить ко многим сферам работы и жизни. 
 
-[![Дизайн пользовательского интерфейса 2. Искусство мыть слона.]({{ site.url }}/post_images/art-of-washing-elephant/art-of-washing-elephant.png)](http://uibook2.usethics.ru)
+[![Дизайн пользовательского интерфейса 2. Искусство мыть слона.]({{ site.url }}/post_images/art-of-washing-elephant/img1.jpg)](http://uibook2.usethics.ru)
 
 
 Лично для себя я выделила следующее:

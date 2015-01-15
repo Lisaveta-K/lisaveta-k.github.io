@@ -6,8 +6,8 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <description>Здесь будет описание</description>
     <language>en-us</language>
-    <pubDate>Thu, 15 Jan 2015 16:35:29 +0800</pubDate>
-    <lastBuildDate>Thu, 15 Jan 2015 16:35:29 +0800</lastBuildDate>
+    <pubDate>Thu, 15 Jan 2015 17:32:16 +0800</pubDate>
+    <lastBuildDate>Thu, 15 Jan 2015 17:32:16 +0800</lastBuildDate>
 
     
       <item>
@@ -17,7 +17,7 @@
         <author>Елизавета Худякова</author>
         <description>&lt;p&gt;Небольшая &lt;a href=&quot;http://uibook2.usethics.ru&quot;&gt;книга&lt;/a&gt; Влада В. Головача, посвященная дизайну пользовательского интерфейса может быть полезна не только дизайнерам. Некоторые тезисы можно применить ко многим сферам работы и жизни. &lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://uibook2.usethics.ru&quot;&gt;&lt;img src=&quot;/post_images/art-of-washing-elephant/art-of-washing-elephant.png&quot; alt=&quot;Дизайн пользовательского интерфейса 2. Искусство мыть слона.&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://uibook2.usethics.ru&quot;&gt;&lt;img src=&quot;/post_images/art-of-washing-elephant/img1.jpg&quot; alt=&quot;Дизайн пользовательского интерфейса 2. Искусство мыть слона.&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Лично для себя я выделила следующее:&lt;/p&gt;
 
@@ -44,7 +44,7 @@
 
 &lt;p&gt;Предстоит понять как вставлять картинки в текст. Так же нужно будет получше освоить &lt;a href=&quot;http://vstarkov.ru/markdown-basics/&quot;&gt;markdown&lt;/a&gt;. Пока не определилась что проще, запомнить правила оформления или воспользоваться &lt;a href=&quot;https://stackedit.io/editor&quot;&gt;онлайн редактором&lt;/a&gt;. Хотя писать прямо в markdown здорово, и как-то атмосферно, что-ли)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/post_images/jekyll-themes/typewriter.jpg&quot; alt=&quot;Печатная машинка&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post_images/jekyll-themes/img1.jpg&quot; alt=&quot;Печатная машинка&quot;&gt;&lt;/p&gt;
 </description>
       </item>
     
