@@ -31,4 +31,4 @@ categories: blog, books, reading
 
 И об&nbsp;относительных величинах, и о&nbsp;@media я знала и до прочтения, но дело не в них, а в подходе и его детальном описании. Спасибо Итану за книгу. А я пожалуй перейду к её продолжению.
 
-[«Отзывчивый веб&-дизайн»]:(http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/)
+[«Отзывчивый веб&-дизайн»]:http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/
