@@ -24,3 +24,4 @@ categories: blog, books, reading
 
 [книга]:	http://uibook2.usethics.ru
 [Фёдору]:http://about.me/feodor_sinoptik
+[«Отзывчивый веб-дизайн»](http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/)

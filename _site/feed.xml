@@ -6,9 +6,42 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <description>Здесь будет описание</description>
     <language>en-us</language>
-    <pubDate>Thu, 15 Jan 2015 17:32:16 +0800</pubDate>
-    <lastBuildDate>Thu, 15 Jan 2015 17:32:16 +0800</lastBuildDate>
+    <pubDate>Thu, 22 Jan 2015 17:51:37 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Jan 2015 17:51:37 +0800</lastBuildDate>
 
+    
+      <item>
+        <title>Отзывчивый веб-дизайн.</title>
+        <link>/responsive-web-design</link>
+        <pubDate>Thu, 22 Jan 2015 16:08:00 +0800</pubDate>
+        <author>Елизавета Худякова</author>
+        <description>&lt;p&gt;Думаю как же лучше описать впечатления от прочтения &lt;a href=&quot;(http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/)&quot;&gt;«Отзывчивый веб-дизайн»&lt;/a&gt; Итана Маркота, и пожалуй восторг - то&amp;nbsp;слово. Многое из&amp;nbsp;описанного вроде и&amp;nbsp;не&amp;nbsp;было сюрпризом, но&amp;nbsp;то&amp;nbsp;как всё подано, и&amp;nbsp;как приправлено изображениями, даёт в&amp;nbsp;результате порядок в голове.&lt;/p&gt;
+
+&lt;p&gt;Я попробую описать, то&amp;nbsp;что&amp;nbsp;кажется мне основным, но прошу, если вы занимаетесь дизайном и/или вёрсткой веб-сайтов, прочитайте эту книгу! (Хотя я и предполагаю, что многие уже это сделали)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/&quot;&gt;&lt;img src=&quot;/post_images/responsive-web-design/img1.jpg&quot; alt=&quot;Отзывчивый веб-дизайн&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Все слышали про относительные величины, но Итан не&amp;nbsp;просто говорит, используйте проценты и em. Он предлагает сосредоточить внимание на пропорциях, а не переносить пиксели из photoshop в css.&lt;/p&gt;
+
+&lt;p&gt;Для того, чтобы учесть пропорции необходимо вооружиться калькулятором и&amp;nbsp;логикой, пересчитать величины относительно родительских блоков, для&amp;nbsp;чего нужно  четко понимать внутри какого блока находится элемент, чьи&amp;nbsp;свойства прорабатываются в данный момент.&lt;/p&gt;
+
+&lt;p&gt;Переход от&amp;nbsp;абсолютных величин (px) к&amp;nbsp;относительным (em,&amp;nbsp;%) позволит сделать макет резиновым, уже неплохо. &lt;/p&gt;
+
+&lt;p&gt;Следующим шагом будет адаптивность, а&amp;nbsp;значит поддержка мобильных устройств, разрешения которых не&amp;nbsp;превышают 768px&amp;nbsp;и широкоформатных мониторов с&amp;nbsp;разрешением превышающим 1200px. В&amp;nbsp;реализации адаптивности поможет правило&amp;nbsp;css - @media.&lt;/p&gt;
+
+&lt;p&gt;Волшебство @media в&amp;nbsp;том, что не&amp;nbsp;прибегая к&amp;nbsp;JavaScript мы сможем контролировать то, как выглядит сайт при различных разрешениях, точнее говоря в&amp;nbsp;определённых диапазонах разрешений. &lt;/p&gt;
+
+&lt;p&gt;Интересно ещё и&amp;nbsp;то, что предлагается подход, при&amp;nbsp;котором разработчики участвуют в&amp;nbsp;процессе дизайна. Взгляды дизайнеров и разработчиков собранные вместе в&amp;nbsp;итоге дадут наиболее полное представление о&amp;nbsp;том, как будет вести себя сайт на&amp;nbsp;различных устройствах и разрешениях. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;   &amp;quot;Взаимодействие дизайнеров и разработчиков 
+    должно быть   постоянным. Обе команды должны 
+    периодически проверять свою работу и давать 
+    её на рассмотрение другой.&amp;quot;
+
+    Итан Маркот
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;И об&amp;nbsp;относительных величинах, и о&amp;nbsp;@media я знала и до прочтения, но дело не в них, а в подходе и его детальном описании. Спасибо Итану за книгу. А я пожалуй перейду к её продолжению.&lt;/p&gt;
+</description>
+      </item>
     
       <item>
         <title>Дизайн пользовательского интерфейса 2. Тезисы.</title>
@@ -23,6 +56,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;Признайте, что любая проделанная вами работа небезупречна. Свыкнетесь с мыслью, что &lt;strong&gt;всё можно сделать лучше&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Но &lt;strong&gt;не нужно улучшать&lt;/strong&gt; что-либо &lt;strong&gt;до бесконечности&lt;/strong&gt;, а лишь до тех пор, пока это действительно полезно.&lt;/li&gt;
 &lt;li&gt;Записывайте то, что необходимо сделать. &lt;strong&gt;Составляйте чеклисты&lt;/strong&gt;. Это поможет избежать ситуаций вроде «Я забыл&amp;nbsp;..., теперь придётся переделать&amp;nbsp;...».&lt;/li&gt;
 &lt;li&gt;Особенно &lt;strong&gt;важно записывать&lt;/strong&gt; свои &lt;strong&gt;ошибки&lt;/strong&gt;, чтобы не повторить их в будущем.&lt;/li&gt;
 &lt;li&gt;Вместо того, чтобы долго думать, &lt;strong&gt;начинайте делать&lt;/strong&gt;. Когда вы переделываете что-то несколько раз, это что-то скорее всего становится лучше.&lt;/li&gt;
@@ -31,7 +65,9 @@
 &lt;li&gt;&lt;strong&gt;Подходите к работе с душой&lt;/strong&gt;. Думайте о тех, для кого вы это делаете, и как вы можете им помочь.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;И спасибо Фёдору за рекомендацию.&lt;/p&gt;
+&lt;p&gt;И спасибо  &lt;a href=&quot;http://about.me/feodor_sinoptik&quot;&gt;Фёдору&lt;/a&gt; за рекомендацию.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/&quot;&gt;«Отзывчивый веб-дизайн»&lt;/a&gt;&lt;/p&gt;
 </description>
       </item>
     
