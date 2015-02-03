@@ -6,8 +6,8 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <description>Здесь будет описание</description>
     <language>en-us</language>
-    <pubDate>Thu, 22 Jan 2015 18:06:26 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Jan 2015 18:06:26 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Jan 2015 18:38:15 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Jan 2015 18:38:15 +0800</lastBuildDate>
 
     
       <item>
@@ -17,13 +17,11 @@
         <author>Елизавета Худякова</author>
         <description>&lt;p&gt;Думаю как же лучше описать впечатления от прочтения &lt;a href=&quot;http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/&quot;&gt;«Отзывчивый веб-дизайн»&lt;/a&gt; Итана Маркота, и пожалуй восторг - то&amp;nbsp;слово. Многое из&amp;nbsp;описанного вроде и&amp;nbsp;не&amp;nbsp;было сюрпризом, но&amp;nbsp;то&amp;nbsp;как всё подано, и&amp;nbsp;как приправлено изображениями, даёт в&amp;nbsp;результате порядок в голове.&lt;/p&gt;
 
-&lt;p&gt;Я попробую описать, то&amp;nbsp;что&amp;nbsp;кажется мне основным, но прошу, если вы занимаетесь дизайном и/или вёрсткой веб-сайтов, прочитайте эту книгу! (Хотя я и предполагаю, что многие уже это сделали)&lt;/p&gt;
+&lt;p&gt;Я попробую описать, то&amp;nbsp;что&amp;nbsp;кажется мне основным, но прошу, если вы занимаетесь дизайном и/или вёрсткой веб-сайтов, прочитайте эту книгу! (Хотя я и предполагаю, что многие уже это сделали)
+&lt;a href=&quot;http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/&quot;&gt;&lt;img src=&quot;/post_images/responsive-web-design/img1.jpg&quot; alt=&quot;Отзывчивый веб-дизайн&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.mann-ivanov-ferber.ru/books/book-apart/otzivchivij-web-design/&quot;&gt;&lt;img src=&quot;/post_images/responsive-web-design/img1.jpg&quot; alt=&quot;Отзывчивый веб-дизайн&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Все слышали про относительные величины, но Итан не&amp;nbsp;просто говорит, используйте проценты и em. Он предлагает сосредоточить внимание на пропорциях, а не переносить пиксели из photoshop в css.&lt;/p&gt;
-
-&lt;p&gt;Для того, чтобы учесть пропорции необходимо вооружиться калькулятором и&amp;nbsp;логикой, пересчитать величины относительно родительских блоков, для&amp;nbsp;чего нужно  четко понимать внутри какого блока находится элемент, чьи&amp;nbsp;свойства прорабатываются в данный момент.&lt;/p&gt;
+&lt;p&gt;Все слышали про относительные величины, но Итан не&amp;nbsp;просто говорит, используйте проценты и em. Он предлагает сосредоточить внимание на пропорциях, а не переносить пиксели из photoshop в css.
+Для того, чтобы учесть пропорции необходимо вооружиться калькулятором и&amp;nbsp;логикой, пересчитать величины относительно родительских блоков, для&amp;nbsp;чего нужно  четко понимать внутри какого блока находится элемент, чьи&amp;nbsp;свойства прорабатываются в данный момент.&lt;/p&gt;
 
 &lt;p&gt;Переход от&amp;nbsp;абсолютных величин (px) к&amp;nbsp;относительным (em,&amp;nbsp;%) позволит сделать макет резиновым, уже неплохо. &lt;/p&gt;
 
