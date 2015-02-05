@@ -1,0 +1,58 @@
+{% extends 'layout_lc.html' %}
+
+{% load users_tags pytils_dt thumbnail %}
+
+{% block title %}Заказ №{{ order.id }} / Мои заказы{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+    <section>
+
+        <h1>Заказ №{{ order.id }}</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>
+                            <img src="{{ item.product.get_main_photo.image|thumbnail_url:'small' }}" alt="{{ item.product }}" title="{{ item.product }}">
+                        </td>
+                        <td>{{ item.product }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.per_item }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" style="text-align: right;">
+                    {% if order.coupon %}
+                        <p>
+                            <strong>Скидка по промо-коду</strong>:
+                                {% if order.coupon.discount_percent %}
+                                    {{ order.coupon.discount_percent }}%: {{ order.coupon_price|stringformat:'.2f' }} <span class="ruble">p</span>
+                                {% else %}
+                                    {{ order.coupon.discount_amount }} <span class="ruble">p</span>
+                                {% endif %}
+                        </p>
+                    {% endif %}
+                    <p>
+                        Сумма: {{ order.net }} <span class="ruble">p</span>
+                    </p>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </section>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% load cart_tags staticfiles %}
+
+<header role="banner">
+    <div class="header-wrapper">
+
+        <div class="container" style="position: relative;">
+
+            <div class="header-auth">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'users.user.update' %}">{{ request.user }}</a>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'admin:index' %}">Администрирование</a>
+                    {% endif %}
+                    <a href="{% url 'users.auth.logout' %}">Выйти</a>
+                {% else %}
+                    <a href="{% url 'users.auth.login' %}" class="header-auth-login">Войти</a>
+                    <a href="{% url 'users.auth.register' %}">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+
+            <div class="header-brand">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.png' %}" alt="Магазин подарков «Томат»" style="width:261px;height:81px;"/>
+                </a>
+            </div>
+
+            <div class="header-navigation">
+                <div class="links-and-search">
+
+                    <nav>
+                        <ul>
+                            <li><a href="/howto/">Как заказать</a></li>
+                            <li><a href="/payment/">Оплата</a></li>
+                            <li><a href="/delivery/">Доставка</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="{% url 'news.index' %}">Акции</a></li>
+                            <li><a href="/about/">О компании</a></li>
+                            <li><a href="/contacts/">Контакты</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="/wholesale/">Опт</a></li>
+                            <li><a href="/franchisee/">Франшиза</a></li>
+                            <li><a href="{% url 'shops.index' %}">Магазины</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="search-block">
+                        <form action="{% url 'search' %}">
+                            <input type="search" results="5" name="query" class="input-small" placeholder="Какой подарок ищете?">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="phone">
+                    <h6><a href="tel:+73952486596">(3952) 486-596</a></h6>
+                    <div title="По иркутскому времени (MSK+5, UTC+9)">С 09:00 до 18:00 по будням</div>
+                </div>
+                {% cart_widget %}
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

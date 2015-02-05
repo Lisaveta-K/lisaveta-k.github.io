@@ -1,0 +1,45 @@
+<div class="nodes-tools {{ css_classes }}">
+    <div class="nodes-tools-sorting">
+        <form action="." method="get">
+            {% if showing_all %}
+                <input type="hidden" name="show" value="all">
+            {% endif %}
+            <label for="nodes-tools-sorting-select">Сортировка</label>
+            <select name="order" id="nodes-tools-sorting-select" class="input-small">
+                <option value="created"{% if order == 'created' %} selected="selected"{% endif %}>По дате появления</option>
+                <option value="price"{% if order == 'price' %} selected="selected"{% endif %}>По цене</option>
+                <option value="title"{% if order == 'title' %} selected="selected"{% endif %}>По названию</option>
+            </select>
+        </form>
+        <div class="collapse-link">
+            {% if page.has_other_pages %}
+                {% if not showing_all %}
+                    <a href="?show=all&order={{ order }}&{% for k, v in get_params.items %}{{ k }}={{ v }}&{% endfor %}">Показать все</a>
+                {% else %}
+                    <a href="?page=1&order={{ order }}{% if price_from %}&price_from={{ price_from }}{% endif %}{% if price_to %}&price_to={{ price_to }}{% endif %}&{% for k, v in get_params.items %}{{ k }}={{ v }}&{% endfor %}">Показать первую страницу</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="nodes-tools-paginator">
+        {% if page.has_other_pages %}
+        <ul class="pagination">
+            <li{% if not page.has_previous %} class="disabled"{% endif %}>
+                {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&order={{ order }}{% if price_from %}&price_from={{ price_from }}{% endif %}{% if price_to %}&price_to={{ price_to }}{% endif %}&{% for k, v in get_params.items %}{{ k }}={{ v }}&{% endfor %}">{% endif %}
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                {% if page.has_previous %}</a>{% endif %}
+            </li>
+            {% for number in page_range %}
+                <li{% if page.number == number %} class="active"{% endif %}>
+                    <a href="?page={{ number }}&order={{ order }}{% if price_from %}&price_from={{ price_from }}{% endif %}{% if price_to %}&price_to={{ price_to }}{% endif %}&{% for k, v in get_params.items %}{{ k }}={{ v }}&{% endfor %}">{{ number }}</a>
+                </li>
+            {% endfor %}
+            <li{% if not page.has_next %} class="disabled"{% endif %}>
+                {% if page.has_next %}<a href="?page={{ page.next_page_number }}&order={{ order }}{% if price_from %}&price_from={{ price_from }}{% endif %}{% if price_to %}&price_to={{ price_to }}{% endif %}&{% for k, v in get_params.items %}{{ k }}={{ v }}&{% endfor %}">{% endif %}
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                {% if page.has_next %}</a>{% endif %}
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+</div>

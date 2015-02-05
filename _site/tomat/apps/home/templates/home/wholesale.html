@@ -1,0 +1,38 @@
+{% extends 'pages/read_lc.html' %}
+
+{% load text %}
+
+{% block style %}
+    {% if request.user.is_anonymous %}
+    <style type="text/css">
+        .btn-wholesale-top {
+            float:right;
+            margin-top:20px;
+        }
+        .btn-wholesale-bottom {
+            float: right;
+            margin-bottom:40px;
+            margin-top:20px;
+        }
+    </style>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if request.user.is_anonymous %}
+    <a class="btn btn-primary btn-wholesale-top" href="{% url 'users.auth.register.wholesale' %}">
+        Перейти к регистрации
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+    {% endif %}
+
+    {{ block.super }}
+
+    {% if request.user.is_anonymous %}
+    <a class="btn btn-primary btn-wholesale-bottom" href="{% url 'users.auth.register.wholesale' %}">
+        Перейти к регистрации
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+    {% endif %}
+
+{% endblock %}

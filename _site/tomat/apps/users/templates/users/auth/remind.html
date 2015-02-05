@@ -1,0 +1,28 @@
+{% extends 'layout_wide.html' %}
+
+{% load forms %}
+
+{% block body_class %}auth{% endblock %}
+
+{% block title %}Восстановление пароля{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Восстановление пароля</h1>
+
+        {% if is_sended %}
+            <p>Мы отправили новый пароль на ваш почтовый адрес.</p>
+            <p>Пожалуйста, проверьте свою почту.</p>
+
+        {% else %}
+
+        <p>Введите адрес почты, который вы использовали для заказов в нашем магазине,
+        и мы отправим вам новый пароль для сайта.</p>
+
+        {% render_form form label='Отправить письмо' %}
+
+        {% endif %}
+
+    </section>
+
+{% endblock %}

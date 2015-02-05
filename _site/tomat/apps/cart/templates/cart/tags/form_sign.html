@@ -1,0 +1,13 @@
+<div class="sign-container">
+    <form action="{% url 'cart.sign' %}" class="sign-form" method="post">{% csrf_token %}
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
+        {{ form.text }}
+        <div class="form-controls">
+            <a class="close" href="#">Закрыть</a>
+            <button class="btn btn-xs btn-primary">Подписать</button>
+        </div>
+    </form>
+    <a href="#" class="sign-trigger">{% if have_text %}Изменить подпись{% else %}Подписать открытку{% endif %}</a>
+</div>

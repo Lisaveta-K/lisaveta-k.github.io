@@ -1,0 +1,18 @@
+{% extends 'layout_wide.html' %}
+
+{% load text %}
+
+{% block title %}{{ page.title|typograph }}{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title|typograph }}</h1>
+
+    {% block content-top %}{% endblock %}
+
+    <section class="dynamic-content">
+        {{ page.content|safe }}
+    </section>
+
+    {% block content-bottom %}{% endblock %}
+
+{% endblock %}

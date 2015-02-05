@@ -1,0 +1,208 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms thumbnail text staticfiles %}
+
+{% block title %}Оплата / Оформление заказа{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(function() {
+        $('a.btn-toggle').click(function(event) {
+            event.preventDefault();
+            var self = $(this);
+            var target = $(self.attr('href'));
+            if (target.is(':visible')) {
+                target.find('input').val('');
+                target.hide();
+            } else {
+                target.show();
+            }
+            self.find('span').toggleClass('glyphicon-plus-sign').toggleClass('glyphicon-minus-sign');
+        });
+
+        $('.payment-choices-block input').click(function() {
+            var that = $(this);
+            var parent = that.parents('.payment-choices-block');
+            parent.find('button').removeAttr('disabled');
+        });
+
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="payment">
+        <h1>Оплата</h1>
+
+
+        <div class="summary-block">
+            <p><strong>Стоимость товаров</strong>: {{ total }}<span class="ruble">p</span></p>
+            {% if order.delivery %}
+            <p><strong>Доставка</strong>: {% if order.delivery_cost %}{{ order.delivery_cost }}<span class="ruble">p</span>{% else %}бесплатно{% endif %}</p>
+            {% endif %}
+            {% if order.discount %}
+                <p>
+                <strong>Скидка по накопительной карте</strong>:
+                {{ order.discount.percent }}%
+                </p>
+            {% endif %}
+            {% if coupon and diff > 0 %}
+                <p>
+                    <strong>Скидка</strong>
+                    {% if coupon.discount_percent %}
+                        {{ coupon.discount_percent }}%: -{{ diff|stringformat:'.2f' }} <span class="ruble">p</span>
+                    {% else %}
+                        {{ coupon.discount_amount }} <span class="ruble">p</span>
+                    {% endif %}
+                </p>
+            {% endif %}
+            {% if order.delivery %}
+                <p class="summary-total"><strong>Сумма</strong>: {{ order.net }}<span class="ruble">p</span></p>
+            {% endif %}
+        </div>
+
+        {% if not order.discount %}
+        <div class="form-wrapper">
+            <form action="." method="post">{% csrf_token %}
+                <input type="hidden" name="action" value="discount">
+
+                <div class="discount-block">
+                    <a class="btn btn-link btn-toggle" href="#discount">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Добавить скидку по дисконтной карте
+                    </a>
+                    <div class="discount-block-inner {% if discount_form.errors %}visible{% endif %}" id="discount">
+                        {% if discount_form.errors %}
+                        <div class="form-errors">
+                            <p>Пожалуйста, проверьте данные дисконтной карты</p>
+                        </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col col-lg-6">
+                                <label for="{{ discount_form.number.auto_id }}">{{ discount_form.number.label }}</label>
+                                {{ discount_form.number }}
+                            </div>
+                            <div class="col col-lg-10">
+                                <label for="{{ form.title.auto_id }}">{{ discount_form.title.label }}</label>
+                                {{ discount_form.title }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="discount-controls col-lg-16">
+                                <button class="btn btn-default">Пересчитать сумму заказа</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if not order.coupon %}
+            <div class="form-wrapper">
+                <form action="." method="post">{% csrf_token %}
+                    <input type="hidden" name="action" value="coupon">
+
+                    <div class="discount-block">
+                        <a class="btn btn-link btn-toggle" href="#coupon">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            Добавить промо-код
+                        </a>
+                        <div class="discount-block-inner {% if coupon_form.errors %}visible{% endif %}" id="coupon">
+                            {% if coupon_form.errors %}
+                                <div class="form-errors">
+                                    {{ coupon_form.errors.code }}
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col col-lg-6">
+                                    <label for="{{ coupon_form.code.auto_id }}">{{ coupon_form.code.label }}</label>
+                                    {{ coupon_form.code }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="discount-controls col-lg-16">
+                                    <button class="btn btn-default">Пересчитать сумму заказа</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        <div class="form-wrapper">
+            <form action="." method="post" id="payment">{% csrf_token %}
+                <input type="hidden" name="action" value="comment">
+
+                <div class="comment-block">
+
+                    <a class="btn btn-link btn-toggle" href="#comment">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Добавить комментарий к заказу
+                    </a>
+                    <div class="comment-block-inner form-field row" id="comment">
+                        <div class="col col-lg-16">
+                            <label for="{{ form.comment.auto_id }}">Комментарий</label>
+                            <div>
+                                {{ form.comment }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if not order.delivery.have_payment_choices %}
+
+                    <div style="text-align:right;">
+                        <button class="btn btn-primary">
+                            {% if order.delivery.is_requiring_instant_payment %}
+                                Оплатить
+                            {% else %}
+                                Оформить заказ
+                            {% endif %}
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+
+                {% else %}
+
+                    <h4>Вы можете оплатить свой заказ:</h4>
+
+                    <div class="payment-choices-block">
+                        <div class="payment-choice">
+                            <input type="radio" name="payment" value="cash" id="payment-cash">
+                            <label for="payment-cash">Наличными{% if not order.delivery.is_self_pickup %} курьеру{% endif %}</label>
+                        </div>
+
+                        <div class="payment-choice">
+                            <input type="radio" name="payment" value="robokassa" id="payment-robokassa">
+                            <label for="payment-robokassa">безналичным расчетом с помощью системы «Робокасса»</label>
+                        </div>
+
+
+                        <div class="payment-choices-controls row">
+                            <div class="col col-lg-10 row">
+                                <div class="col col-lg-7">
+                                    <img src="{% static 'img/robokassa.png' %}" alt="" style="width:178px;height:98px;">
+                                </div>
+                                <div class="col col-lg-9">Узнайте подробнее про <a href="/payment/">способы оплаты вашего заказа</a>.</div>
+                            </div>
+
+                            <div class="col col-lg-6">
+                                <button class="btn btn-primary" disabled="disabled">
+                                    Оформить заказ
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                {% endif %}
+            </form>
+        </div>
+
+    </section>
+
+{% endblock %}

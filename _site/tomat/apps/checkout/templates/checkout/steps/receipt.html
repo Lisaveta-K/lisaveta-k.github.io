@@ -1,0 +1,101 @@
+{% extends 'checkout/layout.html' %}
+
+{% load thumbnail text %}
+
+{% block title %}Спасибо за заказ{% endblock %}
+
+{% block js %}
+    {% if order.delivery.id == 1 and order.shop.point %}
+    <style type="text/css">
+        #map-container { width: 100%; }
+        #map {
+            width: 640px;
+            height: 320px;
+            margin: 20px auto;
+        }
+    </style>
+    <script type="text/javascript" src="http://maps.api.2gis.ru/1.0"></script>
+    <script type="text/javascript">
+        DG.autoload(function() {
+            map = new DG.Map('map');
+
+            var lon = {{ order.shop.point.x|stringformat:'2.11f' }};
+            var lat = {{ order.shop.point.y|stringformat:'3.11f' }};
+
+            var point = new DG.GeoPoint(lon, lat);
+            var marker = new DG.Markers.MarkerWithBalloon({
+                geoPoint: point,
+                balloonOptions: {
+                    headerContentHtml: '{{ order.shop.title }}',
+                    contentHtml: '<p>{{ order.shop.address }}</p><p>Телефон: {{ order.shop.phones }}</p><p>Время работы: {{ order.shop.worktime }}</p>'
+                }
+            });
+            map.markers.add(marker);
+            map.setCenter(point);
+            map.setZoom(14);
+            marker.showBalloon();
+            map.controls.add(new DG.Controls.Zoom());
+        });
+    </script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section class="summary">
+        <h1>Спасибо за заказ!</h1>
+
+        <p>Вашему заказу присвоен номер <strong>{{ order.id }}</strong>.</p>
+        {% if order.delivery.id != 1 %}
+            {% if order.user.show_wholesale %}
+                <p>
+                    Наш оптовый менеджер свяжется с вами в ближайшее время для уточнения условий доставки и оплаты вашего заказа.
+                </p>
+            {% else %}
+            <p>
+                Мы напишем вам письмо на <strong>{{ user.email }}</strong>, как только ваш заказ будет готов.
+            </p>
+            {% endif %}
+        {% else %}
+            <p>Забрать заказ вы можете после звонка нашего мененджера. Ваш заказ будет храниться в течение 7 дней
+            и по истечении этого срока будет аннулирован. Если вы хотите продлить срок хранения или поменять
+            способ доставки, просто позвоните по телефону <a href="tel:+73951486596">(3952) 486-596</a> или <a href="/feedback/">напишите нам</a>.</p>
+            <p>Оплата заказа производится наличными при получении.</p>
+            <p>Всю информацию о своем заказе вы можете получить по телефону <a href="tel:+73951486596">(3952) 486-596</a>,
+            с понедельника по пятницу с 09:00 до 18:00.</p>
+            {% if order.shop.point %}
+            <div id="map-container">
+                <div id="map"></div>
+            </div>
+            {% endif %}
+        {% endif %}
+
+        <table class="table table-condensed">
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>
+                        <img src="{{ item.product.get_main_photo.image|thumbnail_url:'small' }}" alt="{{ item.product }}" title="{{ item.product }}">
+                    </td>
+                    <td>{{ item.product.title|typograph }}</td>
+                    <td>× {{ item.quantity }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:right;">
+                        Сумма заказа: {{ order.net }}<span class="ruble">p</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="text-align: right; margin-top: 20px;" class="form-controls">
+            <a class="btn btn-default" href="/">
+                Продолжить покупки
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </section>
+{% endblock %}

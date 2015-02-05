@@ -1,0 +1,17 @@
+{% extends 'pages/read_lc.html' %}
+
+{% load text static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-10">
+            {{ block.super }}
+        </div>
+        <div class="col-6" style="padding-top:30px;">
+            <object width="240" height="400">
+                <param name="movie" value="{% static 'swf/sberbank.240x400.swf' %}">
+                <embed src="{% static 'swf/sberbank.240x400.swf' %}" width="240" height="400"></embed>
+            </object>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,147 @@
+form {
+
+    width: 460px;
+    margin: 40px auto;
+    .clearfix;
+    .form-horizontal;
+
+    .form-field {
+        .form-group;
+
+        &.form-field-errors {
+			input {
+	            border: 1px solid red;
+			}
+        }
+    }
+
+    .form-field-label {
+        .col-5;
+    }
+    .form-field-input {
+        .col-11;
+    }
+
+    .form-field-help {
+        font-size: 11px;
+        color: @gray;
+    }
+
+    .form-field + .form-field {
+        margin-top: 15px;
+    }
+
+    legend {
+        padding-top: 26px;
+    }
+
+    label {
+        padding-top: 6px;
+        font-size: 11px;
+		text-align: left !important;
+    }
+
+    input, textarea {
+        .form-control;
+        padding: @padding-small-vertical @padding-small-horizontal !important;
+        font-size: @font-size-small !important;
+        border-radius: 0 !important;
+    }
+    input {
+        height: @input-height-small !important;
+    }
+
+    input[type="radio"] {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
+
+    img.captcha {
+        float: left;
+        padding-right: 30px;
+    }
+
+    input#id_captcha_1 {
+        width: 100px;
+    }
+
+    @media (min-width: @screen-tablet) {
+        label {
+            text-align: right;
+        }
+    }
+
+    .form-controls {
+        margin-top: 40px;
+        text-align: right;
+    }
+
+    .errorlist {
+        .list-unstyled;
+
+        li {
+            color: red;
+            font-size: 11px;
+        }
+    }
+
+}
+
+
+.btn {
+    border-radius: 0 !important;
+
+    span.glyphicon {
+        font-size: 10px;
+    }
+}
+
+.btn-primary {
+    background-color: #057936;
+    border: 1px solid #057936;
+    color: #ffffff;
+
+    &:hover, &:focus {
+        background-color: #046E31;
+        color: #fafafa;
+    }
+}
+
+.btn-primary.disabled, .btn-primary[disabled] {
+    background-color: lighten(#41795E, 20%);
+    border: lighten(#41795E, 20%);
+}
+
+.btn-default {
+    background-color: #ffffff;
+    color: @gray-darker;
+    border: 1px solid #057936;
+
+    &:hover, &:focus {
+        background-color: @gray-lighter;
+        border: 1px solid #057936;
+        color: @gray-dark;
+    }
+}
+
+div.bootstrap-datetimepicker-widget {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: none;
+}
+
+.form-fields > div.form-field.form-field-delivery_date {
+    display: none;
+}
+
+.form-fields > div.form-field.form-field-delivery_time {
+    display: none;
+}
+
+#delivery-datetime-fields {
+
+    &.div.form-field.form-field-delivery_date, div.form-field.form-field-delivery_time {
+        display: block;
+    }
+}

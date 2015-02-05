@@ -1,0 +1,77 @@
+{% extends 'layout_cr.html' %}
+
+{% load products_tags %}
+
+{% block title %}Акции{% endblock %}
+
+{% block body_class %}news-list{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Акции</h1>
+        <ul>
+            {% for news in objects.object_list %}
+                <li{% if news.preview %} class="row"{% endif %}>
+                    {% if news.preview %}
+                    <div class="col col-lg-3">
+                        <a href="{{ news.get_absolute_url }}">
+                            <img src="{{ news.preview.url }}" alt="{{ news.title }}"/>
+                        </a>
+                    </div>
+                    <div class="col col-lg-13 col-illustrated">
+                    {% endif %}
+                        <h2>
+                            <a href="{{ news.get_absolute_url }}">
+                                {{ news.title }}
+                            </a>
+                        </h2>
+                        <section>
+                            {{ news.caption|linebreaks|safe }}
+                        </section>
+                        <footer>
+                            <time title="{{ news.date_published|date:'d.m.Y' }}">{{ news.date_published }}</time>
+                        </footer>
+                    {% if news.preview %}
+                    </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer>
+        <div>
+            {% if objects.has_other_pages %}
+                <ul class="pagination">
+                    <li{% if not objects.has_previous %} class="disabled"{% endif %}>
+                        {% if objects.has_previous %}<a href="?page={{ objects.previous_page_number }}">{% endif %}
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        {% if objects.has_previous %}</a>{% endif %}
+                    </li>
+                    {% for number in objects.paginator.page_range %}
+                        <li{% if objects.number == number %} class="active"{% endif %}>
+                            <a href="?page={{ number }}">{{ number }}</a>
+                        </li>
+                    {% endfor %}
+                    <li{% if not objects.has_next %} class="disabled"{% endif %}>
+                        {% if objects.has_next %}<a href="?page={{ objects.next_page_number }}">{% endif %}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        {% if objects.has_next %}</a>{% endif %}
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </footer>
+
+{% endblock %}
+
+{% block sidebar %}
+    <section class="nodes-products-list products-list">
+        <h5 class="label">Новинки</h5>
+        <ul>
+            {% for product in products %}
+                {% product_list_item product %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

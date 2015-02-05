@@ -1,0 +1,108 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms thumbnail %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            var cashpick = $('.payment').find('li:first-child input');
+            var cashless = $('.payment').find('li:last-child input');
+
+            $('.delivery input').click(function() {
+                var that = $(this);
+                var parent = that.parents('.delivery');
+                if (that.val() == '5') { // Транспортной компанией
+                    parent.find('.delivery-choice-inner').show();
+                    cashpick.removeAttr('checked').attr('disabled', 'disabled');
+                    cashless.removeAttr('disabled').attr('checked', 'checked');
+                } else {
+                    parent.find('.delivery-choice-inner').hide();
+                    cashpick.removeAttr('checked').removeAttr('disabled');
+                    cashless.removeAttr('checked').removeAttr('disabled');
+                }
+            });
+
+            $('#wholesale').submit(function(event) {
+                var self = $(this);
+                if ( self.find('input[name="delivery"]:checked').length == 0 ) {
+                    // Не выбрана доставка, а-ся-сяй
+
+                    $('html, body').animate({
+                        scrollTop: $('#wholesale-delivery').offset().top
+                    });
+
+                    event.preventDefault();
+                    return false;
+                }
+                if ( self.find('input[name="payment"]:checked').length == 0 ) {
+                    // О господи, да выберите уже хоть одно поле
+
+                    $('html, body').animate({
+                        scrollTop: $('#wholesale-payment').offset().top
+                    });
+
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="wholesale">
+        <h1>Оформление заказа</h1>
+
+        <form action="." method="post" id="wholesale">{% csrf_token %}
+
+            <h3 id="wholesale-delivery">Доставка</h3>
+            <div class="delivery">
+                {% for choice in form.delivery.field.queryset %}
+                    <div class="delivery-choice">
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="radio" name="{{ form.delivery.name }}" value="{{ choice.id }}" id="delivery-{{ choice.id }}">
+                            </div>
+                            <div class="col-2">
+                                {% thumbnail choice.image '64x64' quality=100 as thumb %}
+                                <img src="{{ thumb.url }}" alt="{{ choice.title }}">
+                            </div>
+                            <div class="col-12">
+                                <h4>
+                                    {{ choice.title }}
+                                </h4>
+                                <p>{{ choice.caption }}</p>
+                            </div>
+                        </div>
+
+                   </div>
+                {% endfor %}
+            </div>
+
+            <h3 id="wholesale-payment">Оплата</h3>
+            <div class="payment">
+                {{ form.payment }}
+            </div>
+
+            <h3>Комментарий к заказу</h3>
+            {{ form.comment }}
+
+            <div class="form-controls">
+                <a class="btn btn-default" style="float:left;margin-top:40px;" href="/">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    Продолжить покупки
+                </a>
+                <button class="btn btn-primary" type="submit">
+                    Оформить заказ
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+{% endblock %}

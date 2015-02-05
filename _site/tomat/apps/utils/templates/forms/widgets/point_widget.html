@@ -1,0 +1,36 @@
+<div id="{{ id }}-map-widget" style="width:700px;height:480px;"></div>
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}">
+<script type="text/javascript">
+    DG.autoload(function() {
+        {% if value %}
+            var coords = new DG.GeoPoint({{ value.x|stringformat:'3.14f' }}, {{ value.y|stringformat:'3.14f' }});
+        {% else %}
+            var coords = new DG.GeoPoint(104.27135, 52.27650);
+        {% endif %}
+
+        var map = new DG.Map('{{ id }}-map-widget');
+        map.setCenter(coords, 15);
+        map.controls.add(new DG.Controls.Zoom());
+
+        function recalculate(center) {
+            var input = document.getElementById('{{ id }}');
+            input.value = 'POINT(' + center.getLon() + ' ' + center.getLat() + ')';
+        }
+
+        var marker = new DG.Markers.Common({
+            geoPoint: coords,
+            draggable: true,
+            dragStopCallback: function() {
+                var c = this.getPosition();
+                recalculate(c);
+            }
+        });
+        map.markers.add(marker);
+
+        map.addEventListener(map.getContainerId(), 'DgClick', function(event) {
+            var center = event.getGeoPoint();
+            marker.setPosition(center);
+            recalculate(center);
+        });
+    });
+</script>

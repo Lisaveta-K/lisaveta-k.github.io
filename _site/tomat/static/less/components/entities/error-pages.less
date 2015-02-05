@@ -1,0 +1,49 @@
+.error-page {
+
+    .container.stiched {
+        margin-top: 40px;
+        background-color: #ffffff;
+        padding: 20px 60px;
+
+        form.search-form {
+            margin: 30px 60px;
+            width: auto;
+            .input-group;
+            box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+            height: 28px;
+
+            input {
+                border-radius: 0;
+                border: 1px dashed @border-dashed-color;
+                background-color: #F7F1E3;
+                height: 28px !important;
+            }
+            .input-group-btn {
+                border: 1px dashed @border-dashed-color;
+                border-left: 0;
+            }
+            // Кнопка поиска
+            button {
+                .btn;
+                .btn-link;
+                padding-top: 4px;
+                font-size: 12px;
+                font-weight: bold;
+                background-color: #F7F1E3 !important;
+                height: 26px;
+
+                &:hover {
+                    color: @gray-dark;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .nodes-products-list {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+    }
+
+}

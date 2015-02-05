@@ -1,0 +1,63 @@
+{% extends 'layout_lc.html' %}
+
+{% load thumbnail staticfiles categories_tags products_tags text adverts_tags cache %}
+
+{% block meta %}
+    <meta name="twitter:card" content="summary">
+    <meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Новинки">
+    <meta property="og:description" content="Новые поступления в наши магазины">
+    <meta property="og:image" content="{% static 'img/tomat.jpg' %}">
+    <link rel="image_src" href="{% static 'img/tomat.jpg' %}">
+{% endblock %}
+
+{% block title %}Новинки{% endblock %}
+
+{% block body_class %}products-list{% endblock %}
+
+{% block promo %}{% endblock %}
+
+{% block content %}
+    <section>
+        <h1 class="label">Новинки</h1>
+
+        {% category_list_tools objects %}
+
+        <ul class="nodes-list nodes-products-list">
+            {% for product in objects.object_list %}
+                {% product_list_item product %}
+            {% endfor %}
+        </ul>
+
+        {% category_list_tools objects 'nodes-tools-bottom' %}
+
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    {% cache 3600 categories.new.prices request.user.status price_from price_to %}{% spaceless %}
+    {% if prices %}
+    <section class="links-list">
+        <h5 class="label">Цена</h5>
+        <ul>
+            {% for min, max, cnt, is_current in prices %}
+            <li{% if is_current %} class="active" title="Показать все товары"{% endif %}>
+                <a href="?order={{ order }}{% if not is_current %}{% if min %}&price_from={{ min }}{% endif %}{% if max %}&price_to={{ max }}{% endif %}{% endif %}">
+                    {% if min and not max %}от {{ min }}{% endif %}
+                    {% if max and not min %}до {{ max }}{% endif %}
+                    {% if min and max %}{{ min }}…{{ max }}{% endif %}
+                    <span class="ruble">p</span>&nbsp;({{ cnt }})
+
+                    {% if is_current %}
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+    {% endspaceless %}{% endcache %}
+
+{% endblock %}

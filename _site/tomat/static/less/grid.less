@@ -1,0 +1,79 @@
+// Overriding bootstrap grid with 16 columns
+
+.col-5-dot-75,
+.col-9-dot-75,
+.col-12-dot-75,
+.col-13,
+.col-14,
+.col-15,
+.col-16,
+.col-sm-13,
+.col-sm-14,
+.col-sm-15,
+.col-sm-16,
+.col-lg-13,
+.col-lg-14,
+.col-lg-15,
+.col-lg-16 {
+    position: relative;
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    padding-left:  (@grid-gutter-width / 2);
+    padding-right: (@grid-gutter-width / 2);
+}
+
+@col-content-width: percentage(( 12.75/ @grid-columns));
+.col-5-dot-75 { width: percentage((5.75 / @grid-columns)); }
+.col-9-dot-75 { width: percentage((9.75/ @grid-columns)); }
+.col-12 { width: percentage((12/ @grid-columns)); }
+.col-12-dot-75 { width: @col-content-width; }
+.col-offset-dot-25 { margin-left: percentage(( 0.25 / @grid-columns )); }
+.col-right-offset-dot-25 { margin-right: percentage(( 0.25 / @grid-columns )); }
+.col-13 { width: percentage((13/ @grid-columns)); }
+.col-14 { width: percentage((14/ @grid-columns)); }
+.col-15 { width: percentage((15/ @grid-columns)); }
+.col-16 { width: 100%; }
+
+// Small device columns (phones to tablets)
+@media (min-width: @screen-tablet) {
+    .container {
+        max-width: @container-tablet;
+    }
+
+    .col-sm-11 { width: percentage((11/ @grid-columns)); }
+    .col-sm-12 { width: percentage((12/ @grid-columns)); }
+    .col-sm-13 { width: percentage((13/ @grid-columns)); }
+    .col-sm-14 { width: percentage((14/ @grid-columns)); }
+    .col-sm-15 { width: percentage((15/ @grid-columns)); }
+    .col-sm-16 { width: 100%; }
+
+// Offsets
+    .col-offset-12 { margin-left: percentage((12/ @grid-columns)); }
+    .col-offset-13 { margin-left: percentage((13/ @grid-columns)); }
+    .col-offset-14 { margin-left: percentage((14/ @grid-columns)); }
+    .col-offset-15 { margin-left: percentage((15/ @grid-columns)); }
+
+// Push and pull columns for source order changes
+    .col-push-12 { left: percentage((12/ @grid-columns)); }
+    .col-push-13 { left: percentage((13/ @grid-columns)); }
+    .col-push-14 { left: percentage((14/ @grid-columns)); }
+    .col-push-15 { left: percentage((15/ @grid-columns)); }
+
+    .col-pull-12 { right: percentage((12/ @grid-columns)); }
+    .col-pull-13 { right: percentage((13/ @grid-columns)); }
+    .col-pull-14 { right: percentage((14/ @grid-columns)); }
+    .col-pull-15 { right: percentage((15/ @grid-columns)); }
+}
+
+// Medium and large device columns (desktop and up)
+@media (min-width: @screen-desktop) {
+    .container {
+        max-width: @container-desktop;
+    }
+    .col-lg-12 { width: percentage((12/ @grid-columns)); }
+    .col-lg-13 { width: percentage((13/ @grid-columns)); }
+    .col-lg-14 { width: percentage((14/ @grid-columns)); }
+    .col-lg-15 { width: percentage((15/ @grid-columns)); }
+    .col-lg-16 { width: 100%; }
+}

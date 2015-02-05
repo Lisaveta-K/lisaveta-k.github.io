@@ -1,0 +1,9 @@
+{% load products_tags %}
+<section class="similar-list{% if not user.show_wholesale %} stiched{% endif %}">
+    {# Для оптовиков блок рисуется отдельной секцией вне col-content и col-sidebar #}
+    <ul class="nodes-products-list">
+        {% for product in similar %}
+            {% product_list_item product %}
+        {% endfor %}
+    </ul>
+</section>

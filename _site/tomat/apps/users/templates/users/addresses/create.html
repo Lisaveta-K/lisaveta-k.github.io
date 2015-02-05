@@ -1,0 +1,20 @@
+{% extends 'layout_lc.html' %}
+
+{% load forms users_tags %}
+
+{% block title %}Новый адрес доставки{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+
+    <section>
+        {% block content_title %}<h1>Добавление адреса доставки</h1>{% endblock %}
+
+        {% render_form form label='Добавить' %}
+
+    </section>
+
+{% endblock %}

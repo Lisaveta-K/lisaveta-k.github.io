@@ -1,0 +1,12 @@
+{% load thumbnail staticfiles text %}
+<li>
+    <a href="{{ category.get_absolute_url }}">
+        {% thumbnail category.cover '140x140' as thumb %}
+        {% if thumb %}
+            <img src="{{ thumb.url }}" alt="{{ category }}" title="{{ category }}" {{ thumb|size }}>
+        {% else %}
+            <img src="{% static 'img/defaults/product_category_cover.jpg' %}" alt="{{ category }}" title="{{ category }}" style="width:140px;height:140px;">
+        {% endif %}
+        <h6>{{ category }}</h6>
+    </a>
+</li>

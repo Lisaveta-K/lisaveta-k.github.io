@@ -1,0 +1,158 @@
+.col-sidebar, .col-content {
+    border: 1px solid @border-color;
+    background-color: @content-bg-color;
+    z-index: 15;
+}
+
+.col-content {
+    .col-12-dot-75;
+	padding-right: 5px;
+    min-height: 950px;
+
+    &.col-content-small {
+        .col-9-dot-75;
+    }
+
+    &.col-content-wide {
+        width: 100%;
+        padding: 0 50px;
+    }
+
+    h1 {
+        font-size: 26px;
+        color: #242424;
+    }
+
+	.alert {
+		margin-top: 20px;
+		a {
+			text-decoration: underline;
+		}
+	}
+
+}
+
+
+@import "entities/category";
+@import "entities/product";
+@import "entities/cart";
+@import "entities/home";
+@import "entities/news";
+@import "entities/shop";
+@import "entities/idea";
+@import "entities/search";
+@import "entities/checkout";
+@import "entities/users";
+@import "entities/delivery";
+@import "entities/error-pages";
+
+// Контент, заполняемый через админку
+.dynamic-content {
+
+    a {
+        border-bottom: 1px solid @gray-light;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+	table {
+		.table-bordered;
+		width: 90%;
+		margin: 12px auto;
+
+		td {
+			padding: 3px 6px;
+		}
+
+		&.flat {
+			border: 0 !important;
+
+			td {
+				border: 0 !important;
+				padding: 0 !important;
+
+				p {
+					margin: 0 !important;
+				}
+			}
+		}
+	}
+
+	ul {
+		list-style: disc !important;
+		margin-left: 16px !important;
+		padding-left: 20px !important;
+
+		li {
+			border: 0 !important;
+			padding: 6px !important;
+			margin: 0 !important;
+
+		}
+	}
+
+}
+
+.col-bottom {
+    background-color: #ffffff;
+    padding: 20px;
+
+    h5 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}
+.container-page {
+    position: relative;
+    z-index: 20;
+}
+.wrapper {
+}
+.background-tomato-left {
+    background: url(/static/img/tomato-left.png) no-repeat left top;
+    width: 367px;
+    height: 472px;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: -367px;
+}
+.background-tomato-right {
+    background: url(/static/img/tomato-right.png) no-repeat left top;
+    width: 431px;
+    height: 561px;
+    z-index: 10;
+    position: absolute;
+    bottom: 0px;
+    right: -300px;
+}
+
+.background-tomato-right-top {
+    background: url(/static/img/tomato-right-top.png) no-repeat left top;
+    width:319px;
+    height: 370px;
+    z-index: 10;
+    position: absolute;
+    top: 0px;
+    right: -300px;
+}
+
+a.social-link {
+    margin-top: 10px;
+    margin-left: 15px;
+    &:hover {
+        opacity: .7;
+    }
+    span {
+        position: absolute;
+        top: 90px;
+        &.vk {
+             left: 297px;
+        }
+        &.instagram {
+             left: 382px;
+        }
+    }
+}

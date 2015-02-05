@@ -1,0 +1,46 @@
+{% extends 'layout_lc.html' %}
+
+{% load users_tags pytils_dt %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+    <section>
+
+        <h1>Мои заказы</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Статус</th>
+                <th>Сумма</th>
+                <th>Дата оформления</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        <a href="{% url 'users.orders.read' order.id %}">
+                            Заказ №{{ order.id }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ order.get_status_display }}
+                    </td>
+                    <td>{{ order.net }}<span class="ruble">p</span></td>
+                    <td>
+                        {{ order.created|ru_strftime:'%d %B %Y г.' }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

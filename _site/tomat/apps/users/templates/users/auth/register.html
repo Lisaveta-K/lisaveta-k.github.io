@@ -1,0 +1,80 @@
+{% extends 'layout_wide.html' %}
+
+{% load forms %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body_class %}register{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            $('.register-type .col-8').equalHeightColumns();
+            var type_retail = $('#type_retail');
+            var type_wholesale = $('#type_wholesale');
+            if (type_retail.is(':checked')) {
+                $('#id_email').focus();
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <form action="." class="register-type" method="post">
+        {% csrf_token %}
+        <div class="register-type-choice">
+            <input type="radio" name="type" value="retail" id="type_retail" checked="checked">
+            <label for="type_retail">Я частное лицо и хочу делать покупки в интернет-магазине</label>
+            <div class="form-inline">
+                {% render_field form.email %}
+                {% render_field form.password %}
+            </div>
+            <p class="text-muted" style="font-size:12px;">Нажимая кнопку «Продолжить», я подтверждаю свою дееспособность,
+                даю согласие на обработку моих персональных данных.</p>
+        </div>
+        <div class="register-type-choice">
+            <input type="radio" name="type" value="wholesale" id="type_wholesale">
+            <label for="type_wholesale">Я представитель юридического лица и хочу делать покупки по оптовым ценам</label>
+            <p class="text-muted" style="font-size:12px;">
+                Выберите этот способ регистрации в случае, если вы планируете делать заказы от имени юридического лица,
+                зарегистрированного на территории России. Вам понадобятся сопроводительные документы.
+            </p>
+            <p>
+                <a href="/wholesale/" style="text-decoration: underline;">Подробнее о регистрации юридических лиц</a>
+            </p>
+        </div>
+
+        <div class="form-controls">
+            <button class="btn btn-primary" type="submit">
+                Продолжить
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
+    </form>
+
+    {% comment %}
+    <section class="row register-type">
+        <div class="col-8">
+            <h4>Я частное лицо</h4>
+            <a class="btn btn-primary" href="#">Зарегистрироваться</a>
+            <p>Зарегистрировавшись на нашем сайте</p>
+        </div>
+        <div class="col-8">
+            <h4>Я представитель юридического лица</h4>
+            <a href="#" class="btn btn-warning">Зарегистрироваться</a>
+            <p>Хотите покупать наши товары оптом? Мы предлагаем вам:</p>
+            <ul>
+                <li><strong>бесплатную доставку</strong> до транспортной компании в Иркутске;</li>
+                <li>накопительную систему скидок;</li>
+                <li>специальные предложения для крупных, сетевых и оптовых компаний.</li>
+            </ul>
+            <a href="#" style="text-align:right;display:block;">
+                Подробная информация
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+
+        </div>
+    </section>
+    {% endcomment %}
+{% endblock %}

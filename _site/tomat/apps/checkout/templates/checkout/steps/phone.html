@@ -1,0 +1,40 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms thumbnail text staticfiles %}
+
+{% block title %}Телефон / Оформление заказа{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            $('#id_number').focus();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="phone">
+        <h1>Телефон</h1>
+
+        <div class="form-wrapper">
+            <form action="." method="post" id="payment">{% csrf_token %}
+
+                <p>Мы позвоним вам для подтверждения заказа. Рекламу слать не будем.</p>
+
+                {{ form.number }}
+
+                <p class="text-muted" style="font-size:12px;">Номер с кодом города, напр. +7 914 927-90-65 или (3952) 500-306</p>
+
+                <div class="form-controls">
+                    <button class="btn btn-primary" type="submit">
+                        Продолжить
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+
+{% endblock %}

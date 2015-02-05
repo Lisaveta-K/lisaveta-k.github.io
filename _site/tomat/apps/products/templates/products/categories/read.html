@@ -1,0 +1,97 @@
+{% extends 'layout_lc.html' %}
+
+{% load thumbnail staticfiles categories_tags products_tags text adverts_tags cache %}
+
+{% block meta %}
+    <meta name="twitter:card" content="summary">
+    <meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ category.title|typograph }}">
+    <meta property="og:description" content="{{ category.description|striptags|truncatewords:30|safe }}">
+    {% if category.cover %}
+        {% thumbnail category.cover '200x200' as thumb %}
+        <meta property="og:image" content="http://www.tomat-podarky.ru{{ thumb.url }}">
+        <link rel="image_src" href="http://www.tomat-podarky.ru{{ thumb.url }}">
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ category.title|typograph }}{% endblock %}
+
+{% block body_class %}products-list{% endblock %}
+
+{% block navigation %}{% navigation category_parent %}{% endblock %}
+
+{% block promo %}{% endblock %}
+
+{% block content %}
+    <section>
+        <h1 class="label">{{ category.title|typograph }}</h1>
+
+        {% promo_block category %}
+
+        {% if category.description %}
+            <div class="description">
+                {{ category.description|typograph|safe }}
+            </div>
+        {% endif %}
+
+        {% category_list_tools objects %}
+
+        <ul class="nodes-list nodes-products-list">
+            {% for product in objects.object_list %}
+                {% product_list_item product category_parent category %}
+            {% endfor %}
+        </ul>
+
+        {% category_list_tools objects 'nodes-tools-bottom' %}
+
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    {% cache 3600 categories.read.prices request.user.status category.id price_from price_to %}{% spaceless %}
+    {% if prices %}
+    <section class="links-list">
+        <h5 class="label">Цена</h5>
+        <ul>
+            {% for min, max, cnt, is_current in prices %}
+            <li{% if is_current %} class="active" title="Показать все товары"{% endif %}>
+                <a href="?order={{ order }}{% if not is_current %}{% if min %}&price_from={{ min }}{% endif %}{% if max %}&price_to={{ max }}{% endif %}{% endif %}">
+                    {% if min and not max %}от {{ min }}{% endif %}
+                    {% if max and not min %}до {{ max }}{% endif %}
+                    {% if min and max %}{{ min }}…{{ max }}{% endif %}
+                    <span class="ruble">p</span>&nbsp;({{ cnt }})
+
+                    {% if is_current %}
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+    {% endspaceless %}{% endcache %}
+
+    {% if other_categories %}
+        <section class="nodes-list related-list">
+            <h5 class="label">Смотрите также</h5>
+            <ul>
+                {% for category in other_categories %}
+                    <li>
+                        <a href="{{ category.get_absolute_url }}" class="row">
+                            {% if category.icon %}
+                                <div class="col-lg-4">
+                                    {% thumbnail category.icon '48x48' as thumb %}
+                                    <img src="{{ thumb.url }}" alt="{{ category }}"/>
+                                </div>
+                            {% endif %}
+                            <div{% if category.icon %} class="col-lg-10"{% endif %}>{{ category }}</div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+{% endblock %}

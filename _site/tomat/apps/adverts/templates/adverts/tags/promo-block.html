@@ -1,0 +1,56 @@
+{% if objects %}
+    <div class="promo-block{% if category %} promo-block-inner{% endif %} carousel" id="promo-carousel">
+
+        <ul class="carousel-inner" style="background-color: #{{ objects.0.color }}">
+            {% for object in objects %}
+                <li class="item {% if forloop.first %}active{% endif %}" data-color="#{{ object.color }}">
+                    <a href="{{ object.url }}" style="background-image:url({{ object.image.url }});" data-image-preload="{{ object.image.url }}"></a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if objects|length > 1 %}
+            <a class="left carousel-control" href="#promo-carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#promo-carousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+
+            <ol class="carousel-indicators">
+                {% for object in objects %}
+                    <li data-target="#product-images" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>
+
+        {% endif %}
+
+    </div>
+    {% if not category %}
+    <style type="text/css">
+        {% if request.breadcrumbs.is_shown %}
+        .container-breadcrumbs {
+        {% else %}
+            .container-page {
+        {% endif %}
+            margin-top: 340px;
+        }
+    </style>
+    {% endif %}
+    <script type="text/javascript">
+        $(function() {
+            $('.promo-block').on('slide.bs.carousel', function(event) {
+                var self = $(this);
+                var inner = self.find('.carousel-inner');
+                var color = $(event.relatedTarget).data('color');
+                inner.css('background-color', color);
+            });
+        });
+    </script>
+{% else %}
+    <style type="text/css">
+        body.home .container-page {
+            margin-top: 24px;
+        }
+    </style>
+{% endif %}

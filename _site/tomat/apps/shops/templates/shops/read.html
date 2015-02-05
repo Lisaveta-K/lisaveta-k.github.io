@@ -1,0 +1,67 @@
+{% extends 'layout_l-wide_c.html' %}
+
+{% block title %}{{ city }}{% endblock %}
+
+{% block body_class %}shops-read{% endblock %}
+{% block sidebar_class %}stiched{% endblock %}
+{% block content_class %}stiched{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="http://maps.api.2gis.ru/1.0"></script>
+    <script type="text/javascript">
+        var map = null;
+        DG.autoload(function() {
+            map = new DG.Map('map');
+            var bounds = new DG.CollectionBounds();
+            $('.col-sidebar section ul li').each(function(idx, el) {
+                el = $(el);
+                var id = parseInt(el.data('id'), 10);
+                var lat = parseFloat(el.data('lat'));
+                var lon = parseFloat(el.data('lon'));
+
+                var point = new DG.GeoPoint(lon, lat);
+                bounds.addPoint(point);
+                var marker = new DG.Markers.Common({
+                    geoPoint: point,
+                    hint: el.find('h6').text(),
+                    clickCallback: function(event, marker) {
+                        $('.col-sidebar li').removeClass('active');
+                        var item = $('.col-sidebar li[data-marker="' + marker.getId() + '"]');
+                        item.addClass('active');
+                    }
+                });
+                map.markers.add(marker);
+                el.attr('data-marker', marker.getId());
+
+            });
+            map.setBounds(bounds);
+            map.zoomOut();
+            map.controls.add(new DG.Controls.Zoom());
+        });
+    </script>
+{% endblock %}
+
+{% block sidebar %}
+    <section>
+        <h1>{{ city }}</h1>
+        <ul>
+            {% for shop in shops %}
+            <li data-id="{{ shop.id }}" data-lat="{{ shop.point.y|stringformat:'2.11f' }}" data-lon="{{ shop.point.x|stringformat:'3.11f' }}">
+                <h5>{{ shop }}</h5>
+                {% if shop.mart %}
+                    <img src="{{ shop.mart.url }}" alt="{{ shop.title }}" class="shop-mart">
+                {% endif %}
+                <p>{{ shop.address }}</p>
+                <p>Телефон: {{ shop.phones }}</p>
+                <p>Время работы: {{ shop.worktime }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div id="map"></div>
+        <p>В любом из наших магазинов вы можете воспользоваться безналичным расчетом.</p>
+    </section>
+{% endblock %}

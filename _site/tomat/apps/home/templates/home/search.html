@@ -1,0 +1,119 @@
+{% extends 'layout_cr.html' %}
+
+{% load thumbnail products_tags pytils_dt text %}
+
+{% block title %}{% if query %}{{ query|capfirst }} / {% endif %}Поиск{% endblock %}
+
+{% block body_class %}search{% endblock %}
+
+{% block content %}
+    <h1>Поиск</h1>
+
+    <form action="." method="get" class="search-form">
+        <input type="search" name="query"{% if query %} value="{{ query }}"{% endif %}>
+        <button class="btn btn-primary" data-loading-text="Поиск…">Поиск</button>
+    </form>
+
+    {% if not query %}
+        <h2>Попробуйте что-нибудь найти</h2>
+    {% else %}
+
+        {% if products %}
+
+            <section class="products-list nodes-products-list">
+                <h5>Товары</h5>
+                <ul>
+                    {% for product in products.object_list %}
+                        {% product_list_item product %}
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <div class="nodes-tools-paginator">
+                {% if products.has_other_pages %}
+                    <ul class="pagination">
+                        <li{% if not products.has_previous %} class="disabled"{% endif %}>
+                            {% if products.has_previous %}<a href="?query={{ query }}&page={{ products.previous_page_number }}">{% endif %}
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            {% if products.has_previous %}</a>{% endif %}
+                        </li>
+                        {% for number in products.paginator.page_range %}
+                            <li{% if products.number == number %} class="active"{% endif %}>
+                                <a href="?query={{ query }}&page={{ number }}">{{ number }}</a>
+                            </li>
+                        {% endfor %}
+                        <li{% if not products.has_next %} class="disabled"{% endif %}>
+                            {% if products.has_next %}<a href="?query={{ query }}&page={{ products.next_page_number }}">{% endif %}
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            {% if products.has_next %}</a>{% endif %}
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <h4>К сожалению, по вашему запросу ничего не найдено.</h4>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+    {% if categories or news or ideas %}
+
+        {% if categories %}
+            <section class="categories-list">
+                <h5>Категории товаров</h5>
+                <ul>
+                    {% for category in categories %}
+                        <li>
+                            {% thumbnail category.cover '120x120' as thumb %}
+                            <a href="{{ category.get_absolute_url }}">
+                                <img src="{{ thumb.url }}" alt="{{ category.title }}">
+                                {{ category.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+
+        {% if news %}
+        <section class="news-list">
+            <h5>Новости</h5>
+            <ul>
+                {% for obj in news %}
+                <li>
+                    <a href="{{ obj.get_absolute_url }}">{{ obj|typograph }}</a>
+                    <time>{{ obj.date_published|ru_strftime:'%d %B %Y г.' }}</time>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        {% if ideas %}
+        <section class="ideas-list">
+            <h5>Идеи подарков</h5>
+            <ul>
+                {% for obj in ideas %}
+                    <li><a href="{{ obj.get_absolute_url }}">{{ obj }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+    {% else %}
+        <section class="products-list">
+            <h5>Смотрите также</h5>
+            <ul>
+                {% for product in see_also %}
+                    {% product_list_item product %}
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+{% endblock %}

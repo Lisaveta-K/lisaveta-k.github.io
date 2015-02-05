@@ -1,0 +1,15 @@
+{% load pytils_numeral staticfiles %}{% spaceless %}
+<div class="cart-block {% if not cart.count %} cart-disabled{% endif %}" data-reload-url="{% url 'cart.views.reload' %}">
+    <div class="content">
+        {% if cart.count %}
+            <a href="{% url 'cart.views.index' %}?from={{ from_url }}">
+                <h6>Корзина</h6>
+                <div class="state">{{ cart.count|get_plural:'товар,товара,товаров' }} - {{ total }}<span class="ruble">p</span></div>
+            </a>
+        {% else %}
+            <h6>Корзина</h6>
+            <div class="state">пусто</div>
+        {% endif %}
+    </div>
+</div>
+{% endspaceless %}

@@ -1,0 +1,52 @@
+{% extends 'layout_cr.html' %}
+
+{% load thumbnail text cart_tags products_tags %}
+
+{% block body_class %}ideas-read{% endblock %}
+
+{% block title %}{{ object.title|typograph }} / Идеи подарков{% endblock %}
+
+{% block meta %}
+<meta name="twitter:card" content="summary">
+<meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ object.title|typograph }}">
+<meta property="og:description" content="{{ object.content|striptags|truncatewords:30|safe }}">
+{% thumbnail object.image '200x150' as thumb %}
+<meta property="og:image" content="http://www.tomat-podarky.ru{{ thumb.url }}">
+<link rel="image_src" href="http://www.tomat-podarky.ru{{ thumb.url }}">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <header>
+            <img src="{{ object.image.url }}" alt=""/>
+            <h1>{{ object.title|typograph }}</h1>
+        </header>
+
+        <div>
+            {{ object.content|safe }}
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block sidebar %}
+    <section>
+        <ul class="nodes-list">
+            {% for product in products %}
+                <li>
+                    <a href="{{ product.get_absolute_url }}" class="product-url">
+                        {% thumbnail product.get_main_photo.image 128x128 as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ product.title }}">
+                    </a>
+                    <h6>
+                        <a href="{{ url }}">{{ product.title|typograph }}</a>
+                    </h6>
+                    {% product_price product %}
+                    {% cart_form_small product %}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

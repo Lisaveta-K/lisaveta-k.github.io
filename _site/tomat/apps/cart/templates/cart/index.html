@@ -1,0 +1,254 @@
+{% extends 'layout_wide.html' %}
+
+{% load thumbnail text staticfiles cart_tags %}
+
+{% block body_class %}cart-list{% endblock %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            function post_delete() {
+                if ($('.cart-container table tbody tr').length == 0) {
+                    var container = $('.cart-container');
+                    container.find('table').remove();
+                    container.find('.cart-summary').remove();
+                    container.find('.cart-controls,.cart-payment').remove();
+                    container.find('.cart-empty').show();
+                }
+            }
+            $('.cart-clear-form').submit(function(event) {
+                event.preventDefault();
+                $.post(this.getAttribute('action'));
+                $('.cart-container table tbody tr').remove();
+                post_delete();
+            });
+            $('.cart-actions-remove').click(function(event) {
+                event.preventDefault();
+                var self = $(this);
+                var parent = self.parents('tr');
+                parent.fadeOut(300, function() {
+                    $.post('{% url 'cart.delete' %}', {
+                        product: parent.data('id')
+                    }, function() {
+                        parent.remove();
+                        post_delete();
+                        $.get('/cart/status/', function(response) {
+                            $('.cart-summary .cart-total-net span:first-child').text(response.net);
+                            $('.cart-summary .coupon-state span.value').text(response.coupon);
+                        });
+                    });
+                });
+            });
+
+            $('.col-coupon .btn-info').click(function(event) {
+                event.preventDefault();
+                $('.col-coupon').addClass('toggled');
+                $('.coupon-form input[type="text"]').focus();
+            });
+
+            $('.sign-trigger').click(function(e) {
+                e.preventDefault();
+                var self = $(this);
+                var form = self.parents('.sign-container').find('form');
+                form = $(form);
+                if (!form.is(':visible')) {
+                    form.show().animate({
+                        height: '100px'
+                    });
+                }
+                self.toggle();
+            });
+            $('.sign-container .close').click(function(e) {
+                e.preventDefault();
+                var container = $(this).parents('.sign-container');
+                var form = $(container.find('form'));
+                form.hide();
+                container.find('.sign-trigger').show();
+            });
+            $('.sign-form').submit(function(e){
+                e.preventDefault();
+                var self = $(this);
+                var text = $.trim(self.find('textarea').val());
+                if (text.length == 0) {
+                    return;
+                }
+                var data = {
+                    product: self.find('#id_product').val(),
+                    text: self.find('textarea').val()
+                };
+                $.post('{% url 'cart.sign' %}', data, function(response) {
+                    var container = self.parents('.sign-container');
+                    container.find('.sign-trigger').show().text('Изменить подпись');
+                    container.find('form').hide();
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="cart-container">
+
+        <div class="row">
+            <div class="col-lg-13">
+                <h1>Корзина</h1>
+            </div>
+            <div class="col-lg-3">
+                <form action="{% url 'cart.clear' %}" class="cart-clear-form" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="from" value="{{ go_back_url }}">
+                    <button type="submit" class="cart-clear btn btn-link" data-loading-text="Очистка…">
+                        Очистить корзину
+                    </button>
+                </form>
+            </div>
+        </div>
+        <table data-row-update-url="{% url 'cart.update' %}">
+            <thead>
+            <tr>
+                <th>Товары</th>
+                <th></th>
+                <th>Количество</th>
+                <th>Цена товара</th>
+                <th>Сумма</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    <tr data-id="{{ item.product.id }}">
+                        <td>
+                            <a href="{{ item.product.get_absolute_url }}">
+                                {% thumbnail item.product.get_main_photo.image '64x64' as thumb %}
+                                <img {{ thumb|size }} src="{{ thumb.url }}" alt="{{ item.product }}" title="{{ item.product }}">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ item.product.get_absolute_url }}">{{ item.product|typograph }}</a>
+                            <div class="product-sku">Артикул: {{ item.product.sku }}</div>
+
+                            {% if item.product.is_signable %}
+                                {% sign_form item %}
+                            {% endif %}
+                        </td>
+                        <td class="actions-block">
+                            <input class="input-sm form-control" type="number" value="{{ item.quantity }}" min="1"{% if user.is_customer %} max="{{ item.product.quantity }}"{% endif %}>
+                            <ul class="cart-actions">
+                                <li>
+                                    <a href="#" class="cart-actions-remove">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Убрать
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="cart-actions-refresh">
+                                        <span class="spinner-icon"></span>
+                                        Пересчитываем корзину…
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            {% get_product_price item.product %}
+                        </td>
+                        <td class="item-price">
+                            {% get_item_price item %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row cart-summary">
+            <div class="col col-lg-12"></div>
+            <div class="col col-lg-4 coupon-state">
+                {% if coupon and diff > 0 %}
+                    <p>
+                    Скидка:
+                    {% if coupon.discount_percent %}
+                        {{ coupon.discount_percent }}%: <span class="value">{{ diff }}</span> <span class="ruble">p</span>
+                    {% else %}
+                        {{ coupon.discount_amount }} <span class="ruble">p</span>
+                    {% endif %}
+                </p>
+                {% endif %}
+                <div class="cart-total-net">Общая сумма: <span>{{ total }}</span><span class="ruble">p</span></div>
+            </div>
+        </div>
+
+        <div class="row cart-controls">
+            <div class="col {% if not request.user.show_wholesale and not coupon %}col-lg-5{% else %}col-lg-12{% endif %}">
+                <a class="btn btn-default" href="{{ go_back_url }}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    Продолжить покупки
+                </a>
+            </div>
+            {% if not request.user.show_wholesale and not coupon %}
+            <div class="col col-lg-7 col-coupon{% if coupon_form.errors %} toggled{% endif %}">
+                <a href="#" class="btn btn-info">Ввести промо-код</a>
+                <div class="coupon-form">
+                    <form action="." method="post">{% csrf_token %}
+                        {{ coupon_form.code }}
+                        <button class="btn btn-success" data-loading-text="Пересчитываем корзину…">
+                            Получить скидку
+                        </button>
+                    </form>
+                    {% if coupon_form.errors %}
+                        <div class="coupon-error">
+                            {{ coupon_form.errors.code|first }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="col col-lg-4">
+                <form action="{% url 'checkout.index' %}">
+                    <button type="submit" class="btn btn-primary" data-loading-text="Пересчитываем корзину…">
+                        Оформить заказ
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if not user.show_wholesale %}
+        <div class="row cart-payment">
+            <div class="col col-lg-5 payment-info">
+                <a href="/payment/">
+                    <img src="{% static 'img/robokassa.png' %}" alt="Подробности о способах оплаты вашего заказа" style="width:178px;height:98px;">
+                </a>
+                <p>Узнайте подробнее про <br><a href="/payment/">способы оплаты вашего заказа</a></p>
+            </div>
+            <div class="col col-lg-9 col-lg-offset-2 complementary-list">
+                <h4>Добавьте к подарку</h4>
+                <ul>
+                    {% for category in complementary_categories %}
+                        {% if category.complementary_cover %}
+                            <li>
+                                <a href="{{ category.get_absolute_url }}">
+                                    {% thumbnail category.complementary_cover '60x60' as thumb %}
+                                    {% thumbnail category.complementary_hover_cover '60x60' as hover_thumb %}
+                                    <img src="{{ thumb.url }}" data-image-preload="{{ hover_thumb.url }}" alt="{{ category }}" title="{{ category }}" {{ thumb|size }}>
+                                    {{ category }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row cart-empty">
+            <h4>Ваша корзина пуста</h4>
+
+            <a class="btn btn-info" href="{{ go_back_url }}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Вернуться в магазин
+            </a>
+        </div>
+    </section>
+
+{% endblock %}

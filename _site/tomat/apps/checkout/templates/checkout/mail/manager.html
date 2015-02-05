@@ -1,0 +1,227 @@
+{% extends 'mail/layout.html' %}
+
+{% load text %}
+
+{% block title %}Новый заказ №{{ order.id }} от {{ order.created|date:'d.m.Y H:i' }}{% endblock %}
+
+{% block content %}
+    <tr>
+        <td>
+            <h1 style="font-size:18px;">Новый заказ №{{ order.id }} от {{ order.created|date:'d.m.Y H:i' }}</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border:1px solid #dddddd;margin-bottom:20px;margin-top:20px;">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:left;padding:7px;color:#222222;">
+                            Детализация заказа
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Тип заказа</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">
+                            {% if order.user.is_wholesale %}
+                                оптовый
+                            {% elif order.user.is_franchisee %}
+                                франшиза
+                            {% else %}
+                                розничный
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Пользователь</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.user.email }}</td>
+                    </tr>
+                    {% if order.user.phone %}
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Телефон пользователя</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.user.phone }}</td>
+                    </tr>
+                    {% endif %}
+                    {% with order.user.company as company %}
+                        {% if company %}
+                            <tr>
+                                <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Компания</th>
+                                <td style="border:1px solid #dddddd;padding:7px;">{{ company.title }}</td>
+                            </tr>
+                            <tr>
+                                <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Контактное лицо</th>
+                                <td style="border:1px solid #dddddd;padding:7px;">{{ company.director }}</td>
+                            </tr>
+                            <tr>
+                                <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Телефон</th>
+                                <td style="border:1px solid #dddddd;padding:7px;">{{ company.phone }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Доставка</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.delivery.title }}</td>
+                    </tr>
+                    {% if order.address %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Адрес</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if order.delivery_id == 1 %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Магазин для вывоза</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.shop }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if order.payment_type %}
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Оплата</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.get_payment_type_display|lower }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if order.discount %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Скидка по дисконтной карте:</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.discount.percent }}%</td>
+                        </tr>
+                     {% endif %}
+                    {% if order.coupon %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Скидка по промо-коду</th>
+                            <td>
+                                {% if order.coupon.discount_percent %}
+                                    {{ order.coupon.discount_percent }}%: {{ order.coupon_price|stringformat:'.2f' }} р.
+                                {% else %}
+                                    {{ order.coupon.discount_amount }} р.
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if order.comment %}
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Комментарий к заказу</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.comment|linebreaksbr }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    {% if order.address %}
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border:1px solid #dddddd;margin-bottom:20px;margin-top:20px;">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:left;padding:7px;color:#222222;">
+                                Адрес доставки
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if order.delivery_date %}
+                            <tr>
+                                <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Дата и время доставки</th>
+                                <td style="border:1px solid #dddddd;padding:7px;">{{ order.delivery_date }} {{ order.delivery_time|date:"H:i" }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Город</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.city }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Почтовый индекс</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.postal_code }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Улица</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.street }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Дом, корпус, строение</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.house }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Квартира, офис</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.flat }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">E-mail получателя</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.email }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Контактный телефон</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">ФИО получателя</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.receiver_title }}</td>
+                        </tr>
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">Телефон получателя</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address.receiver_phone }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    {% endif %}
+
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border:1px solid #dddddd;margin-bottom:20px;margin-top:20px;">
+                <thead>
+                <tr>
+                    <th width="50" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">№</th>
+                    <th style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:left;padding:7px;color:#222222;">Наименование</th>
+                    <th width="80" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Цена за 1 шт.</th>
+                    <th width="70" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Кол-во</th>
+                    <th width="70" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Сумма</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ forloop.counter }}</td>
+                        <td style="border:1px solid #dddddd;padding:7px;vertical-align:top;">
+                            <strong>{{ item.product.title|typograph }}</strong>
+                            <p style="margin:0;"><small>Артикул: {{ item.product.sku }}</small></p>
+                            {% if item.sign %}<div> <strong>Подпись:</strong> {{ item.sign|linebreaksbr }}</div>{% endif %}
+                        </td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.per_item }}</td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.quantity }}</td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.net }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                    <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                        За товары:
+                    </td>
+                    <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.products_cost }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                    <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                        Доставка:
+                    </td>
+                    <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.delivery_cost }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                    <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                        Итого:
+                    </td>
+                    <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.net }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </td>
+    </tr>
+
+{% endblock %}

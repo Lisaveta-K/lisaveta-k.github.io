@@ -1,0 +1,38 @@
+{% extends 'layout_c_r-wide.html' %}
+
+{% load forms pages_tags %}
+
+{% block title %}Регистрация оптового покупателя{% endblock %}
+
+{% block body_class %}register register-wholesale{% endblock %}
+
+{% block content %}
+    <section class="register">
+        {% render_form form company_form label='Зарегистрироваться' %}
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    {% get_page as page %}
+    <section>
+        {% if page %}
+            {{ page.content|safe }}
+        {% else %}
+        <h4><a href="/wholesale/">Преимущества для оптовых покупателей</a></h4>
+        <ul>
+            <li>доставка до транспортной компании в Иркутске осуществляется <strong>бесплатно</strong>!</li>
+            <li>действует накопительная система скидок;</li>
+            <li>специальные предложения для крупных, сетевых и оптовых компаний.</li>
+        </ul>
+        <p>Свяжитесь с нашим оптовым менеджером для получения полной информации:
+        тел. <strong>8 (3952) 50-03-06</strong> (многоканальный)</p>
+        {% endif %}
+
+        <div style="text-align: right;">
+            <a class="btn btn-default" href="/wholesale/">Подробная информация
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout_wide.html' %}
+
+{% block content %}
+
+    <h1>Платеж через Робокассу</h1>
+    <p>Так как технические ограничения сервиса «Робокасса» не позволяют
+    нормально проверить систему оплаты, на время тестирования мы
+    используем эту страницу.
+    </p>
+    <p>Пользователь, перейдя на страницу «Робокассы» для оплаты
+    имеет два варианта действия: он может сделать платеж или отказаться от него.</p>
+
+    <div class="row">
+        <div class="col-8">
+            <form action="{{ request.get_full_path }}" method="post">
+                <input type="hidden" name="OutSum" value="{{ sum }}">
+                <input type="hidden" name="InvId" value="{{ order_id }}">
+                <button class="btn btn-success" type="submit">Оплатить</button>
+            </form>
+        </div>
+        <div class="col-8">
+            <form action=".">
+                <a class="btn btn-danger" href="{% url 'robokassa_fail' %}?OutSum={{ sum }}&InvId={{ order_id }}&Culture=ru">Отказаться от платежа</a>
+            </form>
+        </div>
+    </div>
+
+    <p>* При нажатии на любую из кнопок у вас не исчезнут деньги</p>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% if not discount %}
+    <div class="price">{{ price }} <span class="ruble">p</span></div>
+{% else %}
+    <div class="price price-discount">
+        <small>{{ price }} <span class="ruble">p</span></small>
+        {{ discount }} <span class="ruble">p</span>
+    </div>
+{% endif %}

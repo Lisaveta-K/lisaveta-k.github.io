@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=app_label %}">{{ app_label|capfirst|escape }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ module_name }}</a>
+&rsaquo; {% trans 'History' %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            {{ form.file }}
+        </p>
+        <p>
+            {{ form.type }}
+        </p>
+        <div>
+            <input type="submit" value="Загрузить"/>
+        </div>
+    </form>
+
+{% endblock %}

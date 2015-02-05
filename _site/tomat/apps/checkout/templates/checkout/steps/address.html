@@ -1,0 +1,127 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms staticfiles %}
+
+{% block title %}Адрес доставки / Оформление заказа{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript" src="{% static 'js/lib/transition.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lib/collapse.js' %}"></script>
+{{ form.media }}
+<script type="text/javascript">
+    $(function() {
+        var form = $('#address-form');
+        var button = $('#address-select button');
+        var cities = JSON.parse('{{ courier_cities|safe }}');
+        var id_delivery_date = $('.form-field-delivery_date');
+        var id_delivery_time = $('.form-field-delivery_time');
+        var id_courier_city = $('#id_courier_city');
+        var deliveryDatetimeField = $('#delivery-datetime-fields');
+
+        if (id_courier_city.val() !== '') {
+            id_delivery_date.show();
+            id_delivery_time.show();
+        }
+        $('input[name="address"]').change(function() {
+            var that = $(this);
+            if ( that.val() == 'on' ) {
+                if (that.is(':checked')) {
+                    deliveryDatetimeField.hide();
+                    id_delivery_date.hide();
+                    id_delivery_time.hide();
+                    form.show();
+                    $('html, body').animate({
+                        scrollTop: that.offset().top
+                    });
+                    //$('input[name="delivery_datetime"]').val('');
+                } else {
+                    form.hide();
+                }
+                button.hide();
+            } else {
+                deliveryDatetimeField.detach().appendTo(that.closest('div.row'));
+                deliveryDatetimeField.show();
+                form.hide();
+                button.show();
+            }
+        });
+
+        id_courier_city.change(function() {
+            var self = $(this);
+            var price = cities[self.val()];
+            var target = self.parents('.form-field').find('.form-field-help');
+            var select = self.context[self.val()];
+            if (select == undefined) {
+                id_delivery_date.hide();
+                id_delivery_time.hide();
+                target.empty();
+            } else {
+                id_delivery_date.show();
+                id_delivery_time.show();
+                target.html('Стоимость доставки: ' + price + ' <span class="ruble">p</span>');
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <section class="address">
+        <h1>Адрес доставки</h1>
+
+        {% if addresses %}
+            <form action="." method="post" id="address-select">{% csrf_token %}
+                {% if delivery_type == 4 %}
+                    <div class="col-16" style="display: none" id="delivery-datetime-fields">
+                        <div class="non-field-errors">
+                            {% if delivery_form.non_field_errors.values %}
+                                {{ delivery_form.non_field_errors.values|first }}
+                            {% elif delivery_form.non_field_errors %}
+                                {{ delivery_form.non_field_errors }}
+                            {% endif %}
+                        </div>
+                        {% render_field delivery_form.delivery_date %}
+                        {% render_field delivery_form.delivery_time %}
+                        <script type="text/javascript">
+                            $(function() {
+                                var deliveryDatetimeField = $('#delivery-datetime-fields');
+                                deliveryDatetimeField.detach().appendTo($('input:checked').closest('div.row'));
+                                deliveryDatetimeField.show();
+                            });
+                        </script>
+                    </div>
+                {% endif %}
+                {% for address in addresses %}
+                    <div class="row">
+                        <div class="col-2">
+                            <input type="radio" name="address" id="address-{{ address.id }}" value="{{ address.id }}" {% if address_id == address.id %}checked="checked"{% endif %}>
+                        </div>
+                        <div class="col-14">
+                            <label for="address-{{ address.id }}">{{ address }}</label>
+                            <p>{{ address.receiver_title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-2">
+                        <input type="radio" name="address" id="address-new">
+                    </div>
+                    <div class="col-14">
+                        <label for="address-new">новый адрес</label>
+                    </div>
+                </div>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-primary">Продолжить
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+        <div{% if addresses and not form.errors %} style="display:none;"{% endif %} id="address-form">
+            {% render_form form label='Продолжить <span class="glyphicon glyphicon-chevron-right"></span>' %}
+        </div>
+    </section>
+
+{% endblock %}

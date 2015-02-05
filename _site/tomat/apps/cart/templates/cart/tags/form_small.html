@@ -1,0 +1,18 @@
+{% load pytils_numeral %}
+<form action="{% url 'cart.views.update' %}" method="post" class="product-cart-form-small" data-widget-url="{% url 'cart.reload' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    {{ form.product }}
+    <div class="form-controls">
+        {{ form.quantity }}
+        <button type="submit" class="btn btn-success btn-small"></button>
+    </div>
+    {% if in_cart %}
+        <div class="in-cart">
+            <span class="glyphicon glyphicon-ok"></span>
+            <a href="{% url 'cart.index' %}?from={{ from_url }}">
+                {{ in_cart|get_plural:'товар,товара,товаров' }} в корзине
+            </a>
+        </div>
+    {% endif %}
+</form>

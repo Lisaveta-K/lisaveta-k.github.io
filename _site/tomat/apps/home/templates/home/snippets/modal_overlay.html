@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+<div class='modal' id='social-modal'>
+    <div class='modal-dialog' style="width: 490px">
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class='modal-title'>
+                  <strong>Давайте дружить!</strong>
+                </h4>
+            </div>
+            <div class='modal-body'>
+                <img class="img-responsive" src="{% static 'img/logo.png' %}" />
+                <a target="_blank" href="https://vk.com/tomat.gift" class="social-link" title="Вконтакте"><img class="img-responsive" src="{% static 'img/VK.png' %}" /><span class="vk">Вконтакте</span></a>
+                <a target="_blank" href="http://instagram.com/tomat_gifts" class="social-link" title="Instagram"><img class="img-responsive" src="{% static 'img/Instagram.png' %}" /><span class="instagram">Instagram</span></a>
+            </div>
+            <div class='modal-footer'>
+                <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+          </div>
+        </div>
+  </div>
+</div>

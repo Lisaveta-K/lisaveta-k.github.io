@@ -1,0 +1,55 @@
+# Новый заказ №{{ order.id }} от {{ order.created|date:'d.m.Y H:M' }}
+
+----
+
+Тип заказа: {% if order.user.is_wholesale %}оптовый{% elif order.user.is_franchisee %}франшиза{% else %}розничный{% endif %}
+Пользователь: {{ order.user.email }}
+{% if order.user.phone %}Телефон пользователя: {{ order.user.phone }}{% endif %}
+{% with order.user.company as company %}{% if company %}
+Компания: {{ company.title }}
+Контактное лицо: {{ company.director }}
+Телефон: {{ company.phone }}
+{% endif %}{% endwith %}
+{% if order.address %}Адрес: {{ order.address }}{% endif %}
+Доставка: {{ order.delivery.title|lower }}
+{% if order.delivery_id == 1 %}Магазин для вывоза: {{ order.shop }}{% endif %}
+{% if order.payment_type %}Оплата: {{ order.get_payment_type_display|lower }}{% endif %}
+{% if order.discount %}Скидка по дисконтной карте: {{ order.discount.percent }}%{% endif %}
+{% if order.coupon %}Скидка по промо-коду {{ order.coupon.code }}: {% if coupon.discount_percent %}{{ order.coupon.discount_percent }}%: -{{ order.coupon_price|stringformat:'.2f' }} р{% else %}{{ order.coupon.discount_amount }} р.{% endif %}{% endif %}
+{% if order.comment %}Комментарий к заказу: {{ order.comment }}{% endif %}
+
+----
+
+## Товары
+
+{% for item in items %}
+{{ item.product.title|safe }}
+Артикул: {{ item.product.sku }}
+Цена за 1 шт.: {{ item.per_item }}
+Количество: {{ item.quantity }}
+Сумма: {{ item.net }}
+{% if item.sign %}{{ item.sign }}{% endif %}
+
+{% endfor %}
+
+----
+
+За товары: {{ order.products_cost }} р.
+Доставка: {{ order.delivery_cost }} р.
+Итого: {{ order.net }} р.
+
+{% if order.address %}
+----
+
+## Адрес доставки
+
+Город: {{ order.address.city }}
+Почтовый индекс: {{ order.address.postal_code }}
+Улица: {{ order.address.street }}
+Дом, корпус, строение: {{ order.address.house }}
+Квартира, офис: {{ order.address.flat }}
+E-mail: {{ order.address.email }}
+Контактный телефон: {{ order.address.phone }}
+ФИО получателя: {{ order.address.receiver_title }}
+Телефон получателя: {{ order.address.receiver_phone }}
+{% endif %}

@@ -1,0 +1,48 @@
+{% load thumbnail text cache %}
+{% cache 3600 header.navigation current.id %}
+{% spaceless %}
+    <div class="nav-wrapper">
+        <div class="navigation-bottom-border"></div>
+        <nav class="container categories-navigation">
+            <ul>
+                {% for category in categories %}
+                    <li class="item-{{ category.length_class }}{% if current == category %} current{% endif %}">
+                        <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                        <div class="children">
+                            {% for child in category.direct_children %}
+                                <div class="col{% if child.is_standalone %} col-standalone col-standalone-{{ child.length_class }}{% endif %}">
+                                    {% if child.is_standalone %}
+                                        <h5>
+                                            <a href="{{ child.get_absolute_url }}">{{ child.title|typograph }}</a>
+                                        </h5>
+                                        {% if child.show_cover_in_menu and child.icon %}
+                                        <a href="{{ child.get_absolute_url }}">
+                                            {% thumbnail child.icon 48x48 as thumb %}
+                                            <img src="{{ thumb.url }}" alt="{{ child.title }}" {{ thumb|size }}>
+                                        </a>
+                                        {% endif %}
+                                    {% else %}
+                                        <h5>{{ child.title }}</h5>
+                                        <ul>
+                                            {% for item in child.direct_children %}
+                                                <li>
+                                                    <a href="{{ item.get_absolute_url }}">{{ item|typograph }}</a>
+                                                </li>
+                                                {% if forloop.counter|divisibleby:10 and child.list|length > forloop.counter %}
+                                                    </ul><ul>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </li>&nbsp;
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+
+{% endspaceless %}
+
+{% endcache %}

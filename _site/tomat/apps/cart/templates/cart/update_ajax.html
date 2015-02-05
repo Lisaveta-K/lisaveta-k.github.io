@@ -1,0 +1,15 @@
+{% load text %}
+<div class="cart-status">
+    <h6>Добавлено в вашу корзину</h6>
+    <p>{{ quantity }} × {{ product|typograph }}</p>
+
+    <div class="row">
+        <div class="col-10">
+            <a href="{% url 'cart.index' %}?from={{ from_url }}" class="btn btn-default">Посмотреть корзину</a>
+        </div>
+        <div class="col-6">
+            <a href="{% url 'checkout.index' %}" class="btn btn-success">Купить</a>
+        </div>
+    </div>
+
+</div>

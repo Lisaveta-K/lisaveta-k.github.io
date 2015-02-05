@@ -1,0 +1,158 @@
+{% extends 'mail/layout.html' %}
+
+{% load text %}
+
+{% block title %}Ваш заказ №{{ order.id }} в интернет-магазине «Томат»{% endblock %}
+
+{% block content %}
+    <tr>
+        <td>
+            <h1 style="font-size:18px;">Спасибо за заказ!</h1>
+            <p>Мы приняли ваш заказ для последующей обработки. Детали заказа вы можете увидеть ниже.</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border:1px solid #dddddd;margin-bottom:20px;margin-top:20px;">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:left;padding:7px;color:#222222;">
+                            Детализация заказа
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Номер заказа</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.id }}</td>
+                    </tr>
+                    <tr>
+                        <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Способ доставки</th>
+                        <td style="border:1px solid #dddddd;padding:7px;">{{ order.delivery.title }}</td>
+                    </tr>
+                    {% if order.delivery_id == 1 %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Магазин для вывоза</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.shop }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Адрес доставки</th>
+                            <td style="border:1px solid #dddddd;padding:7px;">{{ order.address }}</td>
+                        </tr>
+                        {% if order.delivery_date %}
+                            <tr>
+                                <th width="200" align="left" style="border:1px solid #dddddd;padding:7px;">Дата и время доставки</th>
+                                <td style="border:1px solid #dddddd;padding:7px;">{{ order.delivery_date }} {{ order.delivery_time|date:"H:i" }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+        </td>
+
+    </tr>
+
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border:1px solid #dddddd;margin-bottom:20px;margin-top:20px;">
+                <thead>
+                    <tr>
+                        <th width="50" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">№</th>
+                        <th style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:left;padding:7px;color:#222222;">Наименование</th>
+                        <th width="80" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Цена за 1 шт.</th>
+                        <th width="70" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Кол-во</th>
+                        <th width="70" style="font-size:12px;border:1px solid #dddddd;background-color:#efefef;font-weight:bold;text-align:center;padding:7px;color:#222222;">Сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ forloop.counter }}</td>
+                        <td style="border:1px solid #dddddd;padding:7px;vertical-align:top;">
+                            <strong>{{ item.product.title|typograph }}</strong>
+                            <p style="margin:0;"><small>Артикул: {{ item.product.sku }}</small></p>
+                            {% if item.sign %}<div> <strong>Подпись:</strong> {{ item.sign|linebreaksbr }}</div>{% endif %}
+                        </td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.per_item }}</td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.quantity }}</td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;vertical-align:top;">{{ item.net }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                        <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                            За товары:
+                        </td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.products_cost }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                        <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                            Доставка:
+                        </td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.delivery_cost }}</td>
+                    </tr>
+                    {% if order.coupon %}
+                        <tr>
+                            <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                            <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                                Скидка по промо-коду:
+                            </td>
+                            <td align="center" style="border:1px solid #dddddd;padding:7px;">
+                                {% if order.coupon.discount_percent %}
+                                    {{ order.coupon.discount_percent }}%: {{ order.coupon_price|stringformat:'.2f' }} р.
+                                {% else %}
+                                    {{ order.coupon.discount_amount }} р.
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td colspan="3" style="border:1px solid #dddddd;padding:7px;border-right:0;"></td>
+                        <td style="font-size:12px;border:1px solid #dddddd;text-align:right;padding:7px;font-weight:bold;border-left:0;">
+                            Итого:
+                        </td>
+                        <td align="center" style="border:1px solid #dddddd;padding:7px;">{{ order.net }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>
+                Менеджер нашего магазина в ближайшее время свяжется с вами по телефону или e-mail для подтверждения заказа.
+            </p>
+            <p>
+                Мы будем рады ответить на ваши вопросы, выслушать пожелания и предложения по работе сервиса.
+                На все вопросы относительно оплаты и доставки товаров ответит служба поддержки нашего сервиса: <a href="mailto:tomat-podarky@mail.ru">tomat-podarky@mail.ru</a>
+            </p>
+        </td>
+    </tr>
+
+    {% if password %}
+    <tr>
+        <td>
+            <p style="color:#333333;">
+                Кстати, ваш пароль для сайта: <strong>{{ password }}</strong>
+                Используйте ваш адрес почты и этот пароль, чтобы проверять состояние своих заказов.
+            </p>
+        </td>
+    </tr>
+    {% endif %}
+
+{% endblock %}
+
+{% block footer-phones %}
+    {% if not order.user.show_wholesale %}
+        Тел.: 8 (3952) 486-596<br>
+    {% else %}
+        Тел.: 8 (3952) 500-306, доб. 1<br>
+        Тел.: 8 914 927-90-65<br>
+    {% endif %}
+{% endblock %}

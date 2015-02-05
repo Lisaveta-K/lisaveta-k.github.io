@@ -1,0 +1,142 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms thumbnail %}
+
+{% block title %}Доставка / Оформление заказа{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            var form = $('#delivery');
+            form.find('input').click(function() {
+                var that = $(this);
+                var parent = that.parents('header');
+                form.find('.collapse').hide();
+                $('#' + parent.data('target')).show();
+                $('html, body').animate({
+                    scrollTop: parent.parent().offset().top
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="delivery">
+        <h1>Доставка</h1>
+
+        <form action="." method="post" id="delivery">{% csrf_token %}
+            <div>
+                <header class="row" data-target="delivery-pickup">
+                    <div class="col-2">
+                        <input type="radio" name="type" value="{{ delivery.pickup.id }}" id="delivery-{{ delivery.pickup.id }}"{% if form.type.value == delivery.pickup.id %} checked="checked"{% endif %}>
+                    </div>
+                    <div class="col-2">
+                        {% thumbnail delivery.pickup.image '64x64' quality=100 as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ delivery.pickup.title }}">
+                    </div>
+                    <div class="col-12">
+                        <h4>{{ delivery.pickup.title }}</h4>
+                        <p>{{ delivery.pickup.caption }}</p>
+                    </div>
+                </header>
+                <article class="collapse" id="delivery-pickup">
+                    <div>
+                        <label for="shop-select">Выберите магазин, в котором вы хотите забрать свой заказ:</label>
+                        <select name="shop" id="shop-select">
+                            {% for shop in shops %}
+                                <option value="{{ shop.id }}">{{ shop }} ({{ shop.address }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Продолжить
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <div>
+                <header class="row" data-target="delivery-mail">
+                    <div class="col-2">
+                        <input type="radio" name="type" value="{{ delivery.mail.id }}" id="delivery-{{ delivery.mail.id }}"{% if form.type.value == delivery.mail.id %} checked="checked"{% endif %}>
+                    </div>
+                    <div class="col-2">
+                        {% thumbnail delivery.mail.image '64x64' as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ delivery.mail.title }}">
+                    </div>
+                    <div class="col-12">
+                        <h4>{{ delivery.mail.title }}</h4>
+                        <p>{{ delivery.mail.caption }}</p>
+                    </div>
+                </header>
+                <article class="collapse" id="delivery-mail">
+                    <div>{{ delivery.mail.content|safe }}</div>
+
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Продолжить
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+
+                </article>
+            </div>
+            <div>
+                <header class="row" data-target="delivery-ems">
+                    <div class="col-2">
+                        <input type="radio" name="type" value="{{ delivery.ems.id }}" id="delivery-{{ delivery.ems.id }}"{% if form.type.value == delivery.ems.id %} checked="checked"{% endif %}>
+                    </div>
+                    <div class="col-2">
+                        {% thumbnail delivery.ems.image '64x64' as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ delivery.ems.title }}">
+                    </div>
+                    <div class="col-12">
+                        <h4>{{ delivery.ems.title }}</h4>
+                        <p>{{ delivery.ems.caption }}</p>
+                    </div>
+                </header>
+                <article class="collapse" id="delivery-ems">
+                    <div>{{ delivery.ems.content|safe }}</div>
+
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Продолжить
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+
+                </article>
+            </div>
+
+            <div>
+                <header class="row" data-target="delivery-courier">
+                    <div class="col-2">
+                        <input type="radio" name="type" value="{{ delivery.courier.id }}" id="delivery-{{ delivery.courier.id }}"{% if form.type.value == delivery.courier.id %} checked="checked"{% endif %}>
+                    </div>
+                    <div class="col-2">
+                        {% thumbnail delivery.courier.image '64x64' as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ delivery.courier.title }}">
+                    </div>
+                    <div class="col-12">
+                        <h4>{{ delivery.courier.title }}</h4>
+                        <p>{{ delivery.courier.caption }}</p>
+                    </div>
+                </header>
+                <article class="collapse" id="delivery-courier">
+                    <div>{{ delivery.courier.content|safe }}</div>
+
+                    <div style="text-align: right;">
+                        <button class="btn btn-primary">Продолжить
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </div>
+
+                </article>
+            </div>
+
+        </form>
+
+    </section>
+
+{% endblock %}

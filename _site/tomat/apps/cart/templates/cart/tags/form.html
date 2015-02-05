@@ -1,0 +1,13 @@
+<form action="{% url 'cart.views.update' %}" method="post" class="product-cart-form" data-widget-url="{% url 'cart.reload' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    {{ form.product }}
+    <div class="product-cart-form-inner">
+        <label for="{{ form.quantity.label_id }}">Количество</label>
+        {{ form.quantity }}
+        <button type="submit" class="btn btn-success btn-small">в корзину</button>
+    </div>
+    {% if quantity %}
+        {% include 'cart/update_ajax.html' %}
+    {% endif %}
+</form>

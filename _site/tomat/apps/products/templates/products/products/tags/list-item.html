@@ -1,0 +1,27 @@
+{% load staticfiles thumbnail text products_tags cart_tags %}
+<li>
+    {% thumbnail photo.image '640x480' as thumb %}{% if thumb %}
+    <a class="fast-view" href="#" data-image="{{ thumb.url }}" data-url="{% url 'products.views.products.fast_view' product.id %}">
+        <span class="glyphicon glyphicon-search"></span>
+        Просмотр
+    </a>{% endif %}
+    <a href="{{ url }}" class="product-url">
+        {% if product.is_new %}<div class="icon-new"></div>{% endif %}
+        {% if have_discount %}<div class="icon-discount"></div>{% endif %}
+        {% thumbnail product.get_main_photo.image '128x128' as cover %}
+        {% if cover %}
+            <img src="{{ cover.url }}" alt="{{ category }}" title="{{ category }}" {{ cover|size }}>
+        {% else %}
+            <img src="{% static 'img/defaults/product_category_cover.jpg' %}" alt="{{ product.title|typograph }}" title="{{ product.title|typograph }}" style="width:140px;height:140px;">
+        {% endif %}
+    </a>
+    <h6>
+        <a href="{{ url }}">{{ product.title|typograph }}</a>
+    </h6>
+    <div class="meta row">
+        {% product_price product %}
+        {% product_pack_amount product %}
+    </div>
+
+    {% cart_form_small product %}
+</li>

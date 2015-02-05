@@ -1,0 +1,326 @@
+{% extends 'layout_c_r-wide.html' %}
+
+{% load thumbnail cart_tags text pytils_numeral text products_tags staticfiles categories_tags %}
+
+{% block title %}{{ product|typograph }} / {{ category }}{% endblock %}
+
+{% block body_class %}products-read{% endblock %}
+{% block content_class %}{% endblock %}
+{% block sidebar_class %}{% endblock %}
+{% block container_attributes %} itemscope itemtype="http://schema.org/Product"{% endblock %}
+
+{% block meta %}
+    <meta name="twitter:card" content="product">
+    <meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ product|typograph }}">
+    <meta property="og:description" content="{{ product.description|striptags|truncatewords:30|safe }}">
+    {% thumbnail product.get_main_photo.image '200x200' as thumb %}
+    <meta property="og:image" content="http://www.tomat-podarky.ru{{ thumb.url }}">
+    <link rel="image_src" href="http://www.tomat-podarky.ru{{ thumb.url }}">
+    <meta name="twitter:label1" content="Цена">
+    <meta name="twitter:data1" content="{% if not discount %}{{ price }}{% else %}{{ discount }}{% endif %} р.">
+    {% if product.sku %}
+    <meta name="twitter:label2" content="Артикул">
+    <meta name="twitter:data2" content="{{ product.sku }}">
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(function() {
+        var previews = $('.carousel-previews');
+        $('.carousel').on('slid.bs.carousel', function() {
+            var self = $(this);
+            var position = parseInt(self.find('.item.active').data('id'), 10);
+            previews.find('li').removeClass('active');
+            var active = previews.find('li[data-id="' + position + '"]');
+            active.addClass('active');
+            previews.find('ul').animate({
+                scrollTop: active.outerHeight() * position
+            });
+        });
+        $('.carousel-previews button').click(function() {
+            var self = $(this);
+            var direction = self.data('slide');
+            var target = previews.find('ul');
+            var top = target.scrollTop();
+            var step = target.find('li').outerHeight();
+
+            if (direction == 'down') {
+                if (target.height() < top)
+                    return;
+                var last = target.find('li:last-child').offset().top;
+                target.animate({
+                    scrollTop: top + step
+                });
+            } else {
+                target.animate({
+                    scrollTop: top - step
+                });
+            }
+        });
+        $('.price-wholesale-request-link').click(function(event) {
+            event.preventDefault();
+            var target = $('.price-wholesale-request-inner');
+            if (!target.is(':visible')) {
+                target.show();
+                target.animate({
+                    height: '210px'
+                });
+            } else {
+                target.animate({
+                    height: '0'
+                }, function() {
+                    target.hide();
+                });
+            }
+        });
+        {% if request.user.show_wholesale %}
+            (function() {
+                var detailed = $('.product-detailed');
+                var delivery = $('.delivery-list');
+                var deth = detailed.offset().top + detailed.outerHeight();
+                var delh = delivery.offset().top + delivery.outerHeight();
+                if (deth < delh) {
+                    detailed.css({
+                        paddingBottom: parseInt(detailed.css('padding-bottom'), 10) + (delh - deth)
+                    });
+                } else {
+                    delivery.css({
+                        paddingBottom: parseInt(delivery.css('padding-bottom'), 10) + (deth - delh)
+                    });
+                }
+            })();
+        {% endif %}
+        Modernizr.load('//connect.facebook.net/ru_RU/all.js#xfbml=1&appId={{ settings.FACEBOOK_API_ID }}');
+        Modernizr.load('//platform.twitter.com/widgets.js');
+    });
+    </script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?99"></script>
+    <script type="text/javascript">
+        try {
+            VK.init({apiId: {{ settings.VK_API_ID }}, onlyWidgets: true});
+        } catch(e) {}
+    </script>
+{% endblock %}
+
+{% block navigation %}{% navigation category_parent %}{% endblock %}
+
+{% block content %}
+    <section class="stiched">
+        <h1 itemprop="name">{{ product.title|typograph }}</h1>
+
+        {% if photos %}
+            <div class="photos-gallery row">
+                {% if photos|length > 1 %}
+                    <div class="carousel-previews">
+                        <button class="carousel-previews-control" data-slide="up">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </button>
+                        <ul>
+                            {% for photo in photos %}
+                                <li{% if forloop.first %} class="active"{% endif %} data-id="{{ forloop.counter0 }}">
+                                    <a href="#product-images" data-target="#product-images" data-slide-to="{{ forloop.counter0 }}">
+                                        {% thumbnail photo.image '100x100' as thumb %}
+                                        <img class="photo" src="{{ thumb.url }}" alt="{{ product.title|typograph }}" {{ thumb|size }}>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <button class="carousel-previews-control" data-slide="down">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                    </div>
+                    <div class="carousel" id="product-images" data-interval="false">
+
+                        <div class="carousel-inner">
+                            {% for photo in photos %}
+                                <div class="item{% if forloop.first %} active{% endif %}" data-id="{{ forloop.counter0 }}">
+                                    {% thumbnail photo.image '400x400' as thumb %}
+                                    <img src="{{ thumb.url }}" alt="{{ product.title|typograph }}" {{ thumb|size }} itemprop="image">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="carousel-cover"></div>
+
+                        <a class="left carousel-control" href="#product-images" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#product-images" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="carousel carousel-single-image">
+                        <div class="carousel-inner">
+                            <div class="carousel-cover"></div>
+                            <div class="item active">
+                                {% with photo=photos|first %}
+                                    {% thumbnail photo.image '400x400' as thumb %}
+                                    <img src="{{ thumb.url }}" alt="{{ product.title|typograph }}" {{ thumb|size }} itemprop="image">
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </section>
+
+    <section class="product-detailed stiched">
+        <h2>Информация</h2>
+        <div class="description" itemprop="description">
+            {{ product.description|typograph|safe }}
+        </div>
+        <table class="table">
+            <tbody>
+                {% if product.weight %}
+                    <tr>
+                        <th>Вес</th>
+                        <td itemprop="weight">{{ product.weight }} г.</td>
+                    </tr>
+                {% endif %}
+                {% if product.is_wholesale and user.show_wholesale and product.pack_amount %}
+                    <th>В упаковке</th>
+                    <td>{{ product.pack_amount }} шт.</td>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+
+    {% if not request.user.show_wholesale and similar %}
+        {% include 'products/products/includes/similar-list.html' %}
+    {% endif %}
+
+{% endblock %}
+
+{% block col_bottom %}
+    {% if user.is_authenticated and user.show_wholesale %}
+    <article class="container col-bottom stiched">
+        <h5 class="label">Смотрите также</h5>
+        {% include 'products/products/includes/similar-list.html' %}
+    </article>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <article>
+        <section class="product-section-information stiched">
+            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                {% if not discount %}
+                    <h2 class="price"><span itemprop="price">{{ price }}</span><span class="ruble">p</span></h2>
+                {% else %}
+                    <h2 class="price price-discount">
+                        <small><span>{{ price }}</span><span class="ruble">p</span></small>
+                        <span itemprop="price">{{ discount }}</span><span class="ruble">p</span>
+                    </h2>
+                {% endif %}
+
+                {% if request.user.is_anonymous %}
+                    <div class="price-wholesale-request">
+                        <a href="#" class="price-wholesale-request-link">Хотите покупать наши товары оптом?</a>
+                        <div class="price-wholesale-request-inner">
+                            <p>Зарегистрируйтесь на сайте! Мы предлагаем вам:</p>
+                            <ul>
+                                <li><strong>бесплатную доставку</strong> до транспортной компании в Иркутске;</li>
+                                <li>накопительную систему скидок;</li>
+                                <li>специальные предложения для крупных, сетевых и оптовых компаний.</li>
+                            </ul>
+                            <div class="form-controls">
+                                <a class="btn btn-default" href="{% url 'users.auth.register.wholesale' %}">
+                                    Зарегистрироваться
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% if product.sku %}
+                <div class="product-sku product-information identifier">Артикул: <span class="sku" itemprop="sku">{{ product.sku }}</span></div>
+            {% endif %}
+                <div class="product-quantity">
+                    На складе:
+                    <span>
+                        {% if request.user.show_wholesale %}
+                            {% if product.wholesale_quantity > 5 %}много{% elif product.wholesale_quantity >= 3 %}достаточно{% elif product.wholesale_quantity >= 1 %}мало{% else %}отсутствует{% endif %}
+                        {% else %}
+                            {% if product.quantity > 5 %}много{% elif product.quantity >= 3 %}достаточно{% elif product.quantity >= 1 %}мало{% else %}отсутствует{% endif %}
+                        {% endif %}
+                    </span>
+                </div>
+
+            {% cart_form product %}
+
+            <div class="social row">
+                <div class="col col-lg-5">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-count="none">Твитнуть</a>
+                </div>
+                <div class="col col-lg-5">
+                    <div id="vk_like"></div>
+                    <script type="text/javascript">
+                        try {
+                            VK.Widgets.Like("vk_like", {type: "mini", height: 18});
+                        } catch(e) {}
+                    </script>
+                </div>
+                <div class="col col-lg-6">
+                    <div class="fb-like" data-href="http://www.tomat-podarky.ru{{ request.path }}" data-width="95" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+                </div>
+            </div>
+
+        </section>
+
+        {% if delivery %}
+        <section class="delivery-list stiched">
+            <ul>
+                {% for option in delivery %}
+                    <li>
+                        <a href="{{ option.get_absolute_url }}">
+                            <img src="{{ option.image.url }}" alt="{{ option }}">
+                            <div>
+                                <h6>{{ option }}</h6>
+                                <p>{{ option.caption }}</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="payment">
+                    <a href="/payment/">
+                        <img src="{% static 'img/accounting-icon.png' %}" alt=""/>
+                        <div>
+                            <h6>Способы оплаты</h6>
+                            <p>Наличными при самовывозе или курьеру, Visa, Mastercard, Qiwi и другие варианты.</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        {% endif %}
+
+        {% if complementary_categories %}
+            <section class="stiched complementary-container">
+                <h4 class="label">Добавьте к подарку</h4>
+                <ul class="complementary-list">
+                    {% for category in complementary_categories %}
+                        {% thumbnail category.complementary_cover '140x140' as thumb %}
+                        {% if thumb %}
+                            <li>
+                                <a href="{{ category.get_absolute_url }}">
+                                    {% thumbnail category.complementary_cover '140x140' as thumb %}
+                                    {% thumbnail category.complementary_hover_cover '140x140' as hover_thumb %}
+                                    <img src="{{ thumb.url }}" data-image-preload="{{ hover_thumb.url }}" alt="{{ category }}" title="{{ category }}" {{ thumb|size }}>
+                                    {{ category }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+
+    </article>
+{% endblock %}

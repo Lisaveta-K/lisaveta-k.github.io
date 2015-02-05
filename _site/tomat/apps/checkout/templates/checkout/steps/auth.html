@@ -1,0 +1,105 @@
+{% extends 'checkout/layout.html' %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            var form = $('section.auth form');
+            var email = form.find('#id_email');
+
+            form.find('#id_email').focus();
+
+            form.submit(function(event) {
+                if (email.val().length == 0) {
+                    event.preventDefault();
+                    return false;
+                }
+
+                if (form.find('input[type="radio"]:checked').length == 0) {
+                    form.find('.row-password').css('display', 'table-row');
+                    event.preventDefault();
+                    return false;
+                }
+
+            });
+
+            form.find('input[type="radio"]').change(function(event) {
+                var that = $(this);
+                switch (that.val()) {
+                    case 'yes':
+                        form.find('.row-password-input').css('display', 'table-cell');
+                        break;
+                    case 'no':
+                        form.find('.row-password-input').hide().removeAttr('value');
+                        break;
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="auth">
+        <h1 style="">Авторизация</h1>
+
+        <form action="." method="post">{% csrf_token %}
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <h4>E-mail</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="row-label">
+                            <label for="id_email">Введите адрес своей почты
+                                <span class="required">*</span>
+                            </label>
+                        </td>
+                        <td>
+                            <input type="email" id="id_email" name="email" {% if form.email.value %} value="{{ form.email.value }}"{% endif %}>
+                            <div class="field-hint">Мы отправим подтверждение вашего заказа на этот адрес</div>
+                        </td>
+                    </tr>
+                    <tr class="row-password{% if wrong_password or busy_email %} active{% endif %}">
+                        <td colspan="2">
+                            <h4>У вас есть пароль?</h4>
+                        </td>
+                    </tr>
+                    <tr class="row-password{% if wrong_password or busy_email %} active{% endif %}">
+                        <td colspan="2" class="row-label row-radio">
+                            <input type="radio" id="id_password_no" name="have_password" value="no">
+                            <label for="id_password_no">Нет (аккаунт будет создан автоматически)</label>
+                        </td>
+                    </tr>
+                    <tr class="row-password{% if wrong_password or busy_email %} active{% endif %}">
+                        <td class="row-label row-radio">
+                            <input type="radio" id="id_password_yes" name="have_password" value="yes">
+                            <label for="id_password_yes">Да, мой пароль:</label>
+                        </td>
+                        <td class="row-password-input{% if have_password %} active{% endif %}">
+                            <input type="password" name="password">
+                        </td>
+                    </tr>
+
+                    <tr class="row-password-errors">
+                        <td colspan="2">
+                            {% if wrong_password %}
+                                <p>Пожалуйста, проверьте свой пароль. <a href="{% url 'users.auth.remind' %}">Забыли</a>?</p>
+                            {% elif busy_email %}
+                                <p>Пользователь с таким e-mail уже существует. <a href="{% url 'users.auth.remind' %}">Напомнить пароль</a>?</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary">
+                Продолжить
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </form>
+
+    </section>
+{% endblock %}

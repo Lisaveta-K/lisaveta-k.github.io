@@ -1,0 +1,17 @@
+{% extends 'layout_lc.html' %}
+
+{% load forms users_tags %}
+
+{% block title %}Моя компания{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Моя компания</h1>
+
+    {% render_form form %}
+
+{% endblock %}

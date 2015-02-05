@@ -1,0 +1,159 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load admin_urls staticfiles %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=app_label %}">{{ app_label|capfirst|escape }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">Товары</a>
+&rsaquo; <a href="..">{{ object }}</a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <h3>Привязка оптового товара к товару «{{ object.title }}»</h3>
+
+    {% if object.wholesale_legacy_id %}
+        <div style="color:red;">К товару уже привязан оптовый товар с номером {{ object.wholesale_legacy_id }}</div>
+    {% endif %}
+
+    <form action="." method="post">{% csrf_token %}
+
+    {% if not article_matches and not code_matches %}
+        <p>Совпадений по артикулу или коду 1С нет.</p>
+
+    {% else %}
+        {% if article_matches %}
+        <fieldset>
+            <legend>Совпадения по артикулу</legend>
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td>Название</td>
+                    <td></td>
+                    <td>Артикул</td>
+                    <td>Код 1С</td>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for match in article_matches %}
+                        <tr>
+                            <td>
+                                <input type="radio" name="id" value="{{ match.id }}"{% if object.wholesale_legacy_id == match.id %} checked="checked"{% endif %}/>
+                            </td>
+                            <td>{{ match.name }}</td>
+                            <td>{% if match.pub != '10' %}не{% endif %} публикуется</td>
+                            <td>{{ match.article }}</td>
+                            <td>{{ match.link }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+        {% endif %}
+
+        {% if code_matches %}
+        <fieldset>
+            <legend>Совпадения по коду 1С</legend>
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td>Название</td>
+                    <td></td>
+                    <td>Артикул</td>
+                    <td>Код 1С</td>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for match in code_matches %}
+                        <tr>
+                            <td>
+                                <input type="radio" name="id" value="{{ match.id }}"{% if object.wholesale_legacy_id == match.id %} checked="checked"{% endif %}/>
+                            </td>
+                            <td>{{ match.name }}</td>
+                            <td>{% if match.pub != '10' %}не{% endif %} публикуется</td>
+                            <td>{{ match.article }}</td>
+                            <td>{{ match.link }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+        {% endif %}
+
+    {% endif %}
+
+        <fieldset id="search">
+            <input type="text" name="query" id="search-query" style="padding:6px;margin:20px;width:300px;" placeholder="Поиск по названию и описанию"/>
+            <span id="search-preloader">
+                <img src="{% static 'img/preloader.gif' %}" alt=""/>
+            </span>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Название</td>
+                        <td></td>
+                        <td>Артикул</td>
+                        <td>Код 1С</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <script type="text/javascript" src="{% static 'js/lib/jquery-1.10.0.min.js' %}"></script>
+        <script type="text/javascript">
+        $(function() {
+            var body = $('#search').find('table tbody');
+            var preloader = $('#search-preloader');
+            var timer_id = null;
+            preloader.hide();
+
+            $('#search-query').keypress(function(event) {
+                var that = $(this);
+                if (that.val().length < 3) return;
+                if (timer_id != null) {
+                    window.clearTimeout(timer_id);
+                }
+                preloader.show();
+                timer_id = window.setTimeout(function() {
+                    $.get('/admin/products/product/link/search/', {query: that.val()}, function(response) {
+                        body.empty();
+
+                        for (var i = 0; i<response.length; i++) {
+                            var obj = response[i];
+
+                            var tpl = '<tr>' +
+                                '<td><input type="radio" name="id" value="' + obj.id + '"/></td>' +
+                                '<td>' + obj.name + '</td>' +
+                                '<td>' + ( obj.pub != '10' ? 'не' : '') + ' публикуется</td>' +
+                                '<td>' + obj.article + '</td>' +
+                                '<td>' + obj.link + '</td>' +
+                                '</tr>';
+                            body.append(tpl);
+                        }
+
+                        preloader.hide();
+
+                    });
+
+                }, 1000);
+
+            });
+        });
+        </script>
+
+
+        <button type="submit">Объединить товары</button>
+
+    </form>
+
+
+
+{% endblock %}

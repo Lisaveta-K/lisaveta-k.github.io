@@ -1,0 +1,78 @@
+{% extends 'layout_cr.html' %}
+
+{% load pytils_dt text %}
+
+{% block title %}{{ object.title|typograph }} / Акции{% endblock %}
+
+{% block meta %}
+    <meta name="twitter:card" content="summary">
+    <meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ object.title|typograph }}">
+    <meta property="og:description" content="{{ object.caption|truncatewords:30|safe }}">
+    {% if object.preview %}
+    <meta property="og:image" content="http://www.tomat-podarky.ru{{ object.preview.url }}">
+    <link rel="image_src" href="http://www.tomat-podarky.ru{{ object.preview.url }}">
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?99"></script>
+    <script type="text/javascript">
+        VK.init({apiId: 3855117, onlyWidgets: true});
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=299776130168541";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+{% endblock %}
+
+{% block body_class %}news-read{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>{{ object.title|typograph }}</h1>
+        <div class="dynamic-content">
+            {{ object.content|safe }}
+        </div>
+        <footer class="social row">
+            <div class="col col-lg-8"></div>
+            <div class="col col-lg-8 row">
+
+                <div class="col col-lg-5">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-count="none">Твитнуть</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+                <div class="col col-lg-5">
+                    <div id="vk_like"></div>
+                    <script type="text/javascript">
+                        VK.Widgets.Like("vk_like", {type: "mini", height: 18});
+                    </script>
+                </div>
+                <div class="col col-lg-6">
+                    <div class="fb-like" data-href="http://www.tomat-podarky.ru{{ request.path }}" data-width="95" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+                </div>
+            </div>
+        </footer>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    <section>
+        <h5 class="label">Последние акции</h5>
+        <ul>
+            {% for object in latest %}
+                <li>
+                    <a href="{{ object.get_absolute_url }}">
+                        {{ object.title }}
+                    </a>
+                    <time>{{ object.date_published|ru_strftime:'%d %B %Y г.' }}</time>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

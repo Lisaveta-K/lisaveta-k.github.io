@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block container %}
+
+    <article class="col-content col-content-small{% block content_class %} stiched{% endblock %}">
+        {% block content %}{% endblock %}
+    </article>
+
+    <aside class="col-sidebar col-sidebar-wide col-sidebar-right{% block sidebar_class %} stiched{% endblock %}">
+        {% block sidebar %}{% endblock %}
+    </aside>
+
+{% endblock %}

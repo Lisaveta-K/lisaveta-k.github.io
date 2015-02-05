@@ -1,0 +1,92 @@
+{% extends 'layout_lc.html' %}
+
+{% load thumbnail staticfiles cache categories_tags adverts_tags text products_tags %}
+
+{% block meta %}
+    <meta name="twitter:card" content="summary">
+    <meta property="og:url" content="http://www.tomat-podarky.ru{{ request.path }}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ category.title|typograph }}">
+    <meta property="og:description" content="{{ category.description|striptags|truncatewords:30|safe }}">
+    {% if category.cover %}
+        {% thumbnail category.cover '200x200' as thumb %}
+        <meta property="og:image" content="http://www.tomat-podarky.ru{{ thumb.url }}">
+        <link rel="image_src" href="http://www.tomat-podarky.ru{{ thumb.url }}">
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ category.title }}{% endblock %}
+
+{% block body_class %}categories-list{% endblock %}
+
+{% block navigation %}{% navigation category %}{% endblock %}
+
+{% block promo %}{% endblock %}
+
+{% block sidebar %}
+<article>
+
+    {% regroup children by parent as categories %}
+    <section>
+        <ul>
+            {% for child in categories %}
+                <li class="parent">
+                    <h5 class="row">
+                        {% if child.grouper.icon %}
+                            <img class="col-lg-4" src="{{ child.grouper.icon.url }}" alt="{{ child.grouper }}"/>
+                        {% endif %}
+                        <div{% if child.grouper.icon %} class="col-lg-10"{% endif %}>{{ child.grouper }}</div>
+                    </h5>
+                    <ul>
+                        {% for category in child.list %}
+                            <li>
+                                <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+</article>
+{% endblock %}
+
+{% block content %}
+<article>
+    <section>
+
+        {% if not objects %}
+        <a href="?show=all" style="float:right;padding:8px;border:1px solid #ccc;margin-top:16px;" title="Показать все товары">Смотреть всё</a>
+        {% endif %}
+        <h1 class="label">{{ category }}</h1>
+
+        {% promo_block category %}
+
+        {% if category.description %}
+            <div class="description">
+                {{ category.description|linebreaks }}
+            </div>
+        {% endif %}
+
+        {% if objects %}
+            {% category_list_tools objects 'nodes-tools-minimal' 'show' %}
+
+            <ul class="nodes-list nodes-products-list">
+                {% for product in objects.object_list %}
+                    {% product_list_item product category_parent category %}
+                {% endfor %}
+            </ul>
+
+            {% category_list_tools objects 'nodes-tools-minimal nodes-tools-bottom' 'show' %}
+        {% elif children %}
+            <ul class="nodes-list">
+                {% for child in children %}
+                    {% category_list_item child %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </section>
+</article>
+{% endblock %}

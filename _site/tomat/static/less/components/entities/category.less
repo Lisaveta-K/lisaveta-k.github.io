@@ -1,0 +1,220 @@
+.categories-list, .products-list {
+
+	.label {
+		margin-left: -27px;
+	}
+
+    .col-content {
+
+        h1 {
+            margin-top: 19px;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            margin-bottom: 30px;
+            p {
+                font-size: 12px;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+    // Список товаров или категорий
+        .nodes-list {
+            .list-unstyled;
+            .list-inline;
+
+            li {
+                width: 148px; // Изображение = 132px + padding: 10px 0;
+                margin-right: 0px;
+                margin-bottom: 10px;
+                vertical-align: top;
+                padding: 10px 5px 0;
+                text-align: center;
+
+                .product-url {
+                    display: block;
+                    background: #ffffff;
+                    padding: 5px;
+					box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+                }
+                img {
+                    border: 1px solid @gray-lighter;
+                }
+            }
+
+        // Название категории или товара
+            h6 {
+                font-weight: bold;
+                color: @link-color;
+                text-align: left;
+            }
+        }
+
+        .promo-block-inner {
+            position: relative;
+            top: auto;
+            left: auto;
+            margin-left: -5px;
+            margin-right: 0;
+            margin-bottom: 20px;
+            width: auto;
+            height: auto;
+            border-bottom: 0;
+            border-top: 2px solid @gray-lighter;
+
+            .carousel-indicators {
+                bottom: 0;
+            }
+
+            a {
+                min-height: 300px;
+            }
+        }
+
+    // Пагинатор, сортировка
+        .nodes-tools {
+            .row;
+            margin-left: 10px !important;
+            margin-right: 10px !important;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid @border-color;
+
+            &.nodes-tools-bottom {
+                border-bottom: 0;
+                padding-bottom: 20px;
+                margin-bottom: 0;
+                padding-top: 10px;
+                margin-top: 20px;
+                border-top: 1px solid @border-color;
+            }
+
+            &.nodes-tools-minimal {
+                .collapse-link {
+                    display: none;
+                }
+            }
+
+            .nodes-tools-sorting {
+                .col-9;
+                .row;
+                padding-left: 0;
+
+                form {
+                    .col-10;
+                    .row;
+                    margin: 0;
+                    padding: 0;
+
+                    label {
+                        .col-7;
+                        font-weight: normal;
+                        font-size: 12px;
+                        height: 26px;
+                        padding-top: 3px;
+                    }
+                    select {
+                        .col-9;
+                        padding: 0;
+                        height: 22px;
+                        font-size: 12px;
+                    }
+                }
+                div {
+                    .col-6;
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-decoration: underline;
+                    height: 26px;
+                    padding-top: 3px;
+                }
+            }
+
+            .nodes-tools-paginator {
+                .col-7;
+                .pull-right;
+                padding-right: 0;
+
+                ul {
+                    margin: 0;
+                    .pagination-sm;
+                    .pull-right;
+                }
+            }
+
+        }
+
+    }
+
+	.col-sidebar {
+
+		.related-list {
+
+			ul {
+				.list-unstyled;
+			}
+
+			li {
+				text-align: left;
+				clear: both;
+			}
+
+			img {
+				display: block;
+			}
+
+			a {
+				color: @gray-dark;
+				margin: 0;
+				&:hover .col-lg-10 {
+					text-decoration: underline;
+				}
+			}
+			.col-lg-4 {
+				padding: 0;
+			}
+			.col-lg-10 {
+				padding-right: 0;
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
+
+        .links-list {
+            li {
+
+                &.active {
+                    span.glyphicon {
+                        float: right;
+                        font-size: 14px;
+                        padding-top: 1px;
+                    }
+                }
+            }
+        }
+
+	}
+
+}
+
+.categories-list {
+	.col-sidebar {
+		li.parent {
+			border-bottom: 1px solid @gray-light;
+			padding-bottom: 12px;
+		}
+		img {
+			padding: 0;
+		}
+		h5 {
+			margin: 0;
+			border: none;
+
+			div {
+				padding-top: 6px;
+			}
+		}
+	}
+}

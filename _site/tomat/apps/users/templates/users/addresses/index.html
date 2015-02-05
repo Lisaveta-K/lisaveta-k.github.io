@@ -1,0 +1,51 @@
+{% extends 'layout_lc.html' %}
+
+{% load users_tags %}
+
+{% block title %}Адреса доставки{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+    <section>
+
+        <a class="pull-right btn btn-success" href="{% url 'users.address.create' %}">Добавить еще один адрес доставки</a>
+        <h1>Адреса доставки</h1>
+
+
+        <table class="table table-striped address-list">
+            <tbody>
+                {% for address in addresses %}
+                    <tr>
+                        <td>
+                            <p>
+                                {{ address }}   <br>
+                                {{ address.receiver_title }}
+                            {% if address.email or address.phone %}
+                                <p>
+                                    {{ address.email }},
+                                    {{ address.phone }}
+                                </p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'users.address.update' address.id %}">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Редактировать
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{% url 'users.address.delete' address.id %}" method="post" >
+                                {% csrf_token %}
+                                <button type="submit" title="Удалить"><span class="glyphicon glyphicon-remove"></span>&nbsp;Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

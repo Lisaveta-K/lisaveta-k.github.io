@@ -1,0 +1,41 @@
+{% load forms %}
+<form action="{{ action }}" method="{{ method }}">
+    {% if method.lower == 'post' %}
+        {% csrf_token %}
+    {% endif %}
+
+    <div style="display:none;">
+    {% for form in forms %}
+        {% if form.hidden_fields %}
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    {% for form in forms %}
+    <fieldset>
+        {% if form.label and forms|length > 1 %}<legend>{{ form.label }}</legend>{% endif %}
+
+        <div class="non-field-errors">
+            {% if form.non_field_errors.values %}
+                {{ form.non_field_errors.values|first }}
+            {% elif form.non_field_errors %}
+                {{ form.non_field_errors }}
+            {% endif %}
+        </div>
+
+        <div class="form-fields">
+            {% for field in form.visible_fields %}
+                {% render_field field %}
+            {% endfor %}
+        </div>
+    </fieldset>
+    {% endfor %}
+
+    <div class="form-controls">
+        <button class="btn btn-primary">{{ label }}</button>
+    </div>
+
+</form>

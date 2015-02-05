@@ -1,0 +1,36 @@
+@import "../bootstrap/breadcrumbs";
+
+.container-breadcrumbs {
+	font-size: 11px;
+	margin-top: 20px;
+
+	ul {
+		margin: 0;
+	}
+
+	.breadcrumb {
+		background: none;
+
+		li {
+			color: #333;
+			text-shadow: 1px 1px #DFDFC9;
+
+			a {
+				color: #333 !important;
+				font-size: 12px;
+				text-shadow: 1px 1px #DFDFC9;
+			}
+
+			&+li:before {
+				// Right chevron
+				content: "\e080\00a0"; // Unicode space added since inline-block means non-collapsing white-space
+				font-family: 'Glyphicons Halflings';
+				-webkit-font-smoothing: antialiased;
+				color: #666;
+				font-size: 8px;
+			}
+		}
+
+	}
+
+}

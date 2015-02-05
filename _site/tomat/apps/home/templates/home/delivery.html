@@ -1,0 +1,36 @@
+{% extends 'layout_wide.html' %}
+
+{% load thumbnail %}
+
+{% block title %}Доставка{% endblock %}
+
+{% block body_class %}delivery-list{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Информация о доставке</h1>
+
+        <ul>
+            {% for object in objects %}
+                <li id="{{ object.slug }}">
+                    <div class="image">
+                        {% thumbnail object.image '72x72' as thumb %}
+                        <img src="{{ thumb.url }}" alt="" {{ thumb.size }}/>
+                    </div>
+                    <div class="content">
+                        <h4>{{ object }}</h4>
+                        {{ object.content|safe }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="form-controls" style="margin-bottom: 40px">
+            <a class="btn btn-default" href="/">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Перейти к покупкам
+            </a>
+        </div>
+
+    </section>
+{% endblock %}

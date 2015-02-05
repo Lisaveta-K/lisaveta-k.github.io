@@ -1,0 +1,32 @@
+{% extends 'layout_lc.html' %}
+
+{% load text %}
+
+{% block title %}{{ page.title|typograph }}{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        {% for child in children %}
+        <li>
+            {% if child.url == request.path %}
+                <strong style="color:#5f5f5f">{{ child.title }}</strong>
+            {% else %}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title|typograph }}</h1>
+
+    {% block content-top %}{% endblock %}
+
+    <section class="dynamic-content">
+        {{ page.content|safe }}
+    </section>
+
+    {% block content-bottom %}{% endblock %}
+
+{% endblock %}

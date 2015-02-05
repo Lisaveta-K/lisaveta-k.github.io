@@ -1,0 +1,27 @@
+{% extends 'layout_wide.html' %}
+
+{% load pages_tags %}
+
+{% block body_class %}shops-list{% endblock %}
+
+{% block title %}Наши магазины{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Наши магазины</h1>
+        <ul class="cities-list">
+            {% for city in cities %}
+                <li>
+                    <a href="{% url 'shops.read' city.slug %}">{{ city }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    {% get_page as page %}
+    {% if page %}
+    <section>
+        {{ page.content|safe }}
+    </section>
+    {% endif %}
+{% endblock %}

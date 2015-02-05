@@ -1,0 +1,54 @@
+.col-sidebar {
+    .col-3;
+
+    &.col-sidebar-wide {
+        .col-6;
+    }
+
+    // Сайдбар находится справа
+    &.col-sidebar-right {
+        .col-offset-dot-25;
+        padding: 0;
+    }
+
+    // Сайдбар слева
+    &.col-sidebar-left {
+        .col-right-offset-dot-25;
+    }
+
+    // Блок со списком ссылок
+    section.links-list {
+
+    }
+
+    h5 {
+        border-bottom: 1px solid @border-color;
+        color: @link-color;
+        font-weight: bold;
+        font-size: 12px;
+        margin-top: 16px;
+        padding: 8px 0;
+    }
+
+    time {
+        display: block;
+        font-size: 11px;
+        color: @gray-light;
+    }
+
+    ul {
+        .list-unstyled;
+
+        li {
+            font-size: 12px;
+            line-height: 16px;
+            padding-top: 8px;
+
+            &.active {
+                font-weight: bold;
+            }
+
+        }
+    }
+
+}

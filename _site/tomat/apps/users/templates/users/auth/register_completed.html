@@ -1,0 +1,28 @@
+{% extends 'pages/read.html' %}
+
+{% load products_tags %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <h1>Спасибо за регистрацию в интернет-магазине «Томат»!</h1>
+
+    <p>
+    {% if user.show_wholesale %}
+        Вы зарегистрировались, как оптовый покупатель.
+    {% else %}
+        Вы зарегистрировались, как розничный покупатель.
+    {% endif %}
+    </p>
+
+    <p>Для изменения статуса обратитесь к менеджеру по телефону: <strong>(3952) 486-596</strong>.</p>
+
+    <div class="form-controls" style="padding: 40px 0;">
+        <a href="/" class="btn btn-primary">
+            Перейти к покупкам
+            <span class="glyphicon glyphicon-arrow-right"></span>
+        </a>
+    </div>
+
+
+{% endblock %}

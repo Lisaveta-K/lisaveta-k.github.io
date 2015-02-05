@@ -1,0 +1,22 @@
+{% extends 'layout_lc.html' %}
+
+{% load forms users_tags %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block sidebar %}
+    {% user_navigation %}
+{% endblock %}
+
+{% block content %}
+
+    {% if not have_addresses %}
+        <div class="alert alert-info">
+            <button class="close" data-dismiss="alert">&times;</button>
+            <a href="{% url 'users.address.create' %}">Добавьте адрес доставки</a>, чтобы мы смогли отправить ваш заказ
+        </div>
+    {% endif %}
+
+    {% render_form form %}
+
+{% endblock %}

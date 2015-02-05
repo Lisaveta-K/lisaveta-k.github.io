@@ -1,0 +1,17 @@
+{% extends 'layout_wide.html' %}
+
+{% load forms %}
+
+{% block title %}Свяжитесь с нами{% endblock %}
+
+{% block body_class %}feedback{% endblock %}
+
+{% block content %}
+    {% if is_sended %}
+        <h1>Спасибо за ваш отзыв!</h1>
+
+    {% else %}
+        <h1>Свяжитесь с нами</h1>
+        {% render_form form label='Отправить<span class="glyphicon glyphicon-chevron-right"></span>' %}
+    {% endif %}
+{% endblock %}

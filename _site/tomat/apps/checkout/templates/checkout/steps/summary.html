@@ -1,0 +1,125 @@
+{% extends 'checkout/layout.html' %}
+
+{% load forms thumbnail text %}
+
+{% block title %}Подтверждение / Оформление заказа{% endblock %}
+
+{% block content %}
+    <section class="summary">
+        <h1>Ваш заказ</h1>
+
+        <form action="." method="post" id="sumary">{% csrf_token %}
+
+            {% if address %}
+                <p>
+                    <strong>Получатель:</strong>
+                    {{ address.receiver_title }}
+                </p>
+                <p>
+                    <strong>Адрес:</strong>
+                    {{ address }}
+                </p>
+            {% elif shop %}
+                <p>
+                    <strong>Адрес:</strong>
+                    {{ shop }}, {{ shop.address }}
+                </p>
+            {% endif %}
+            {% if delivery %}
+            <p>
+                <strong>Доставка:</strong>
+                {{ delivery.title|lower }}
+            </p>
+            {% endif %}
+            {% if delivery_date %}
+                <p>
+                    <strong>Дата и время доставки:</strong>
+                    {{ delivery_date }} {{ delivery_time|date:"H:i" }}
+                </p>
+            {% endif %}
+
+            <table class="table table-condensed">
+                <tbody>
+                {% for item in cart %}
+                    <tr>
+                        <td>
+                            <img src="{{ item.product.get_main_photo.image|thumbnail_url:'small' }}" alt="{{ item.product }}" title="{{ item.product }}">
+                        </td>
+                        <td>{{ item.product.title|typograph }}</td>
+                        <td>× {{ item.quantity }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    {% if coupon and diff > 0 %}
+                        <tr>
+                            <td colspan="3" style="text-align: right;">
+                                <span>Скидка</span>
+                                {% if coupon.discount_percent %}
+                                    {{ coupon.discount_percent }}%: -{{ diff|stringformat:'.2f' }} <span class="ruble">p</span>
+                                {% else %}
+                                    {{ coupon.discount_amount }} <span class="ruble">p</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if delivery %}
+                    <tr>
+                        <td colspan="3" style="text-align:right;">
+                            <span>Стоимость товаров:</span>
+                            {{ total|stringformat:'.2f' }}<span class="ruble">p</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: right;">
+                            <span>Стоимость доставки:</span>
+                            {% if delivery_cost %}
+                                {{ delivery_cost }}<span class="ruble">p</span>
+                            {% else %}
+                                бесплатно
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td colspan="3" style="text-align: right;">
+                            <span>Итого:</span>
+                            {{ net|stringformat:'.2f' }}<span class="ruble">p</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="checkout-controls row{% if user.show_wholesale %} wholesale{% endif %}">
+                <div class="col col-lg-6">
+                    {% if user.show_wholesale %}
+                    <a class="btn btn-default" href="/">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        Продолжить покупки
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="col col-lg-10">
+                    <button class="btn btn-primary">
+                        {% if user.show_wholesale %}
+                            Отправить заказ менеджеру
+                        {% else %}
+                            Продолжить
+                        {% endif %}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+
+                    <div class="manager-call">
+                        <p>
+                            Если у вас возникли вопросы по оформлению заказа,<br>вы можете позвонить менеджеру: <strong>(3952)&nbsp;486-596</strong>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </section>
+
+{% endblock %}

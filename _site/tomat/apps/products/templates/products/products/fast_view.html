@@ -1,0 +1,25 @@
+{% load text cart_tags %}
+{% if not discount %}
+    <h2 class="price"><span itemprop="price">{{ price }}</span><span class="ruble">p</span></h2>
+{% else %}
+    <h2 class="price price-discount">
+        <small><span>{{ price }}</span><span class="ruble">p</span></small>
+        <span itemprop="price">{{ discount }}</span><span class="ruble">p</span>
+    </h2>
+{% endif %}
+
+<div class="description">{{ product.description|typograph|safe }}</div>
+<table class="table">
+    <tbody>
+    {% if product.weight %}
+        <tr>
+            <th>Вес</th>
+            <td>{{ product.weight }} г.</td>
+        </tr>
+    {% endif %}
+    {% if product.is_wholesale and user.show_wholesale and product.pack_amount %}
+        <th>В упаковке</th>
+        <td>{{ product.pack_amount }} шт.</td>
+    {% endif %}
+    </tbody>
+</table>

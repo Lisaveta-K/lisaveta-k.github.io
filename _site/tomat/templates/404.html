@@ -1,0 +1,78 @@
+<!DOCTYPE html>{% load staticfiles cart_tags categories_tags adverts_tags shops_tags products_tags %}
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 / Магазин подарков «Томат»</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <!--[if IE]>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <![endif]-->
+    {% if True %}
+        <link rel="stylesheet/less" type="text/css" href="{% static 'less/scout.less' %}">
+        <script type="text/javascript">var less=less||{};less.env='development';</script>
+        <script type="text/javascript" src="{% static 'js/lib/less-1.4.0.min.js' %}"></script>
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/compiled/scout.css' %}">
+    {% endif %}
+    {% block style %}{% endblock %}
+</head>
+
+<body class="error-page">
+
+{% include 'components/header.html' %}
+
+    <div class="container stiched">
+
+        {% if not product %}
+            <h1>Этой страницы не существует</h1>
+            <p>На нашем сайте нет страницы с таким адресом. Попробуйте найти то, что вам нужно:</p>
+        {% else %}
+            <h1>У нас больше нет этого товара</h1>
+            <p>Попробуйте найти то, что вам нужно:</p>
+        {% endif %}
+
+        <form action="{% url 'search' %}" class="search-form">
+            <input type="search" results="5" name="query" class="input-small">
+            <span class="input-group-btn">
+
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Поиск
+                </button>
+            </span>
+        </form>
+
+        {% if products %}
+            {% if not product %}
+                <p>или посмотрите на наши новинки, они вам понравятся:</p>
+            {% else %}
+                <p>или посмотрите на похожие товары, они вам понравятся:</p>
+            {% endif %}
+        <ul class="nodes-products-list">
+            {% for product in products %}
+                {% product_list_item product %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+
+{% if not debug %}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-1663583-31']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter22301035 = new Ya.Metrika({id:22301035, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/22301035" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+{% endif %}
+</body>
+</html>

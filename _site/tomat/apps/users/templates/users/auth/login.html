@@ -1,0 +1,31 @@
+{% extends 'layout_wide.html' %}
+
+{% load forms %}
+
+{% block body_class %}auth{% endblock %}
+
+{% block title %}Вход на сайт{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function() {
+            var email = $('#id_email');
+            var password = $('#id_password');
+            if (email.val().length > 0) {
+                password.focus();
+            } else {
+                email.focus();
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="register">
+        <h1>Вход</h1>
+
+        {% render_form form label='Войти на сайт<span class="glyphicon glyphicon-chevron-right">' %}
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'layout_cr.html' %}
+
+{% block body_class %}ideas-list{% endblock %}
+
+{% block title %}Идеи подарков{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Идеи подарков</h1>
+
+        <ul class="nodes-list">
+            {% for object in objects.object_list %}
+                <li>
+                    <a href="{{ object.get_absolute_url }}">
+                        <img src="{{ object.thumbnail.url }}" alt="" style="width:{{ object.thumbnail.width }}px;height:{{ object.thumbnail.height }}px;"/>
+                        {{ object.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if objects.has_other_pages %}
+            <ul class="pager">
+                {% if objects.has_previous %}
+                <li class="previous">
+                    <a href="?page={{ objects.previous_page_number }}">&larr; предыдущие записи</a>
+                </li>
+                {% endif %}
+                {% if objects.has_next %}
+                <li class="next">
+                    <a href="?page={{ objects.next_page_number }}">следующие записи &rarr;</a>
+                </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+    <section>
+        <h5 class="label">Категории</h5>
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="{{ category.get_absolute_url }}">
+                        {{ category.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

@@ -1,0 +1,8 @@
+# Новый вопрос на сайте «Томат»
+
+Имя пользователя: {% if instance.user %}{{ instance.user.title }}{% else %}{{ instance.title }}{% endif %}
+E-mail: {% if instance.user %}{{ instance.user.email }}{% else %}{{ instance.email }}{% endif %}
+
+----
+
+{{ instance.content }}
